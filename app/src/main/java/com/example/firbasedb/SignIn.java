@@ -1,0 +1,113 @@
+package com.example.firbasedb;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.sql.Connection;
+
+public class SignIn extends AppCompatActivity {
+
+    private Connection connection = null;
+
+    Button signIn, signUp , forgetPassButton;
+    EditText Email,pass;
+    TextView textView;
+FirebaseAuth firebaseAuth;
+ProgressDialog progressDialog;
+    String email,password;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_in);
+        signIn = findViewById(R.id.signInButton);
+        signUp = findViewById(R.id.signUptButton);
+        Email = findViewById(R.id.userName);
+        pass = findViewById(R.id.pass);
+        forgetPassButton = (Button)findViewById(R.id.forgetPassButton);
+firebaseAuth = FirebaseAuth.getInstance();
+progressDialog = new ProgressDialog(this);
+progressDialog.setTitle("pleas wait...");
+progressDialog.setCanceledOnTouchOutside(false);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(SignIn.this, SignUp.class));
+            }
+        });
+        forgetPassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+              //  startActivity(new Intent(SignIn.this, Forgetpassword.class));
+            }
+        });
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginuser();
+
+                //startActivity(new Intent(SignIn.this, HomePage.class));
+
+            }
+
+
+        });
+    }
+
+
+    private void loginuser() {
+       email = Email.getText().toString();
+         password = pass.getText().toString();
+         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+             Toast.makeText(SignIn.this, "Fields email pattern..", Toast.LENGTH_LONG).show();
+
+         }
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+         Toast.makeText(SignIn.this, "All Fields are Required", Toast.LENGTH_LONG).show();
+         }
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseAuth.signInWithEmailAndPassword(email,password)
+                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                        if(currentUser != null){
+                            progressDialog.setMessage("Sing in Account ...");
+                            startActivity(new Intent(SignIn.this, EditProfile.class ));
+                        }
+
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(SignIn.this, ""+e.getMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+                });
+    }
+}

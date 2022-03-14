@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<Button
+    android:id="@+id/signInBut"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="#00FFFFFF"
+    android:text="Sign in"
+    android:textColor="#718E37"
+    android:textStyle="bold"
+    app:layout_constraintStart_toEndOf="@+id/textView7"
+    app:layout_constraintTop_toBottomOf="@+id/signUpBut" />
+
+<TextView
+    android:id="@+id/textView7"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="68dp"
+    android:layout_marginLeft="68dp"
+    android:layout_marginTop="24dp"
+    android:text="Already have an account?"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/signUpBut" />
+
+<Button
+    android:id="@+id/signUpBut"
+    android:layout_width="328dp"
+    android:layout_height="37dp"
+    android:layout_marginStart="40dp"
+    android:layout_marginLeft="40dp"
+    android:layout_marginTop="30dp"
+    android:background="@drawable/button_custom"
+    android:text="Sign up"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/phone" />
+
+<TextView
+    android:id="@+id/textView6"
+    android:layout_width="162dp"
+    android:layout_height="33dp"
+    android:layout_marginStart="172dp"
+    android:layout_marginLeft="172dp"
+    android:layout_marginTop="104dp"
+    android:layout_marginEnd="77dp"
+    android:layout_marginRight="77dp"
+    android:layout_marginBottom="188dp"
+    android:text="Sign up"
+    android:textColor="#718E37"
+    android:textSize="24sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toTopOf="@+id/userName"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<EditText
+    android:id="@+id/userName"
+    android:layout_width="297dp"
+    android:layout_height="47dp"
+    android:layout_marginStart="53dp"
+    android:layout_marginLeft="53dp"
+    android:layout_marginTop="50dp"
+    android:ems="10"
+    android:hint="enter your name"
+    android:inputType="textPersonName"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+<EditText
+    android:id="@+id/pass"
+    android:layout_width="297dp"
+    android:layout_height="47dp"
+    android:layout_marginStart="53dp"
+    android:layout_marginLeft="53dp"
+    android:layout_marginTop="10dp"
+    android:ems="10"
+    android:hint="enter the password"
+    android:inputType="textPassword"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+<EditText
+    android:id="@+id/email"
+    android:layout_width="297dp"
+    android:layout_height="47dp"
+    android:layout_marginStart="53dp"
+    android:layout_marginLeft="53dp"
+    android:layout_marginTop="10dp"
+    android:ems="10"
+    android:hint="enter your email"
+    android:inputType="textEmailAddress"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/pass" />
+
+<EditText
+    android:id="@+id/phone"
+    android:layout_width="297dp"
+    android:layout_height="47dp"
+    android:layout_marginStart="53dp"
+    android:layout_marginLeft="53dp"
+    android:layout_marginTop="10dp"
+    android:ems="10"
+    android:hint="enter your phone number"
+    android:inputType="phone"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/email" />
+</androidx.constraintlayout.widget.ConstraintLayout>
