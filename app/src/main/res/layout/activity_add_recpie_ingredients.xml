@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".addRecpieIngredients">
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="267dp"
@@ -14,9 +15,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="127dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="52dp"
         android:layout_marginRight="17dp"
-        android:layout_marginBottom="650dp"
+        android:layout_marginBottom="644dp"
         android:layout_weight="1"
         android:text="Add the ingredients of the recipe"
         android:textSize="18sp"
@@ -25,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.943"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048"/>
+        app:layout_constraintVertical_bias="0.048" />
 
     <LinearLayout
         android:id="@+id/id_bottom"
@@ -51,7 +52,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/custom_button"
+            android:background="@drawable/button_custom"
 
             android:text="Add" />
 
@@ -85,10 +86,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="33dp"
-        android:layout_marginTop="49dp"
-        android:layout_marginRight="320dp"
-        android:layout_marginBottom="647dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="335dp"
+        android:layout_marginBottom="666dp"
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
