@@ -129,7 +129,7 @@
             android:layout_marginBottom="0dp"
             android:addStatesFromChildren="false"
             android:spinnerMode="dropdown"
-            tools:ignore="TouchTargetSizeCheck"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck"
             tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="589dp" />
     </RelativeLayout>
@@ -146,7 +146,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.735" />
+        app:layout_constraintVertical_bias="0.735"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/addp"
@@ -159,7 +160,8 @@
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.851" />
+        app:layout_constraintVertical_bias="0.851"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/editText"
