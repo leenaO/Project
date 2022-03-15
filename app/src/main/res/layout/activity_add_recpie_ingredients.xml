@@ -43,7 +43,8 @@
             android:layout_marginRight="10dp"
             android:layout_weight="10"
             android:hint="Type Ingredient"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/add"
@@ -95,6 +96,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.048"
-        app:srcCompat="?attr/actionModeCloseDrawable" />
+        app:srcCompat="?attr/actionModeCloseDrawable"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 </RelativeLayout>
