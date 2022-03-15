@@ -71,7 +71,8 @@
             android:text="Take a picture of the recipe"
             android:textAllCaps="false"
             android:textSize="14sp"
-            android:visibility="visible" />
+            android:visibility="visible"
+            tools:ignore="TextContrastCheck" />
 
 
     </RelativeLayout>
@@ -128,6 +129,7 @@
             android:layout_marginBottom="0dp"
             android:addStatesFromChildren="false"
             android:spinnerMode="dropdown"
+            tools:ignore="TouchTargetSizeCheck"
             tools:layout_editor_absoluteX="80dp"
             tools:layout_editor_absoluteY="589dp" />
     </RelativeLayout>
