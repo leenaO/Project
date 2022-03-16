@@ -69,24 +69,11 @@ public class EditProfile extends AppCompatActivity  {
     Button save , sting;
     Uri uri;
     int request_code;
+    StorageReference storageReference;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
     ActivityResultLauncher<Intent> someActivityResultLauncher1;
-//    FirebaseStorage storage ;
-//    StorageReference storageReference,riversRef;
-//   profile profile;
-//    Bitmap bitmap;
-//    String e_mail , Name ,  avatar;
-//    DatabaseReference myRef;
-//    FirebaseDatabase database;
-//    Integer phone;
-   // String newRandomId = String.valueOf(Calendar.getInstance().getTimeInMillis());
 
- //   public static String randoumkey;
-  //  ActivityResultLauncher<Intent> someActivityResultLauncher;
-
-//    FirebaseDatabase firebaseDatabase;
-//    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -94,7 +81,6 @@ public class EditProfile extends AppCompatActivity  {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         setContentView(R.layout.editprofile);
-
         name = (EditText) findViewById(R.id.EditText1);
         email = (EditText) findViewById(R.id.EditText2);
         phonNo = (EditText) findViewById(R.id.EditText3);
@@ -105,12 +91,6 @@ public class EditProfile extends AppCompatActivity  {
         View view = this.getCurrentFocus();
         getSomeActivityResultLauncher();
 
-//        storage = FirebaseStorage.getInstance();
-//        storageReference = storage.getReference("profile");
-//        profile = new profile();
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference("Account");
- //       showalldata();
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("please wait");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -206,44 +186,6 @@ public class EditProfile extends AppCompatActivity  {
     }
 
 
-
-//    public void uplodpictor() {
-//
-//        randoumkey= UUID.randomUUID().toString();
-//        riversRef = storageReference.child("images/").child(randoumkey);
-//
-//        //storageReference = storage.getReference().child("image/").child(randomkey());
-//        System.out.println("path name"+riversRef.getPath());
-//
-//        imageView.setDrawingCacheEnabled(true);
-//        imageView.buildDrawingCache();
-//        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//        byte[] data = baos.toByteArray();
-//
-//        UploadTask uploadTask = riversRef.putBytes(data);
-//
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                Toast.makeText(getApplicationContext(),"failed to upload",Toast.LENGTH_LONG).show();
-//                // Handle unsuccessful uploads
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-//                // ...
-//                Snackbar.make(findViewById(android.R.id.content),"image upload",Snackbar.LENGTH_LONG).show();
-//            }
-//        });
-//
-//
-//
-//
-//    }
-
     private void showImagePicDialog() {
         String options[] = {"Camera", "Gallery"};
         androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -272,8 +214,6 @@ public class EditProfile extends AppCompatActivity  {
                 }
         );
         builder.create().show();
-        Toast.makeText(EditProfile.this, "cant open", Toast.LENGTH_LONG).show();
-
     }
     private Boolean checkStoragePermission() {
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
@@ -304,7 +244,7 @@ public class EditProfile extends AppCompatActivity  {
         someActivityResultLauncher1.launch(intent);
     }
 
-
+////////database firebase////////
 String nameupdate , emailupate , phoneupadte;
    public void Save(View view) {
 nameupdate = name.getText().toString();
@@ -316,7 +256,10 @@ updateprofile();
    }
 
     private void updateprofile() {
-       Toast.makeText(getApplicationContext(),"Updating profile",Toast.LENGTH_SHORT).show();
+        progressDialog.setMessage("Updating profile");
+        progressDialog.show();
+
+        Toast.makeText(getApplicationContext(),"Updating profile",Toast.LENGTH_SHORT).show();
        if(uri==null){
            HashMap<String,Object> hashMap = new HashMap<>();
            hashMap.put("name",nameupdate);
@@ -328,6 +271,7 @@ updateprofile();
                        @Override
                        public void onSuccess(Void unused) {
                            Toast.makeText(getApplicationContext(),"profile update...",Toast.LENGTH_SHORT).show();
+                           progressDialog.dismiss();
 
                        }
                    }).addOnFailureListener(new OnFailureListener() {
@@ -336,209 +280,79 @@ updateprofile();
                    Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
                }
            });
+
        }else {
-           String filepathname ="profile_image/"+""+firebaseAuth.getUid();
-           StorageReference storageReference = FirebaseStorage.getInstance().getReference(filepathname);
+           String file_pathname ="profile_image/"+""+firebaseAuth.getUid();
+           DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
+           storageReference = FirebaseStorage.getInstance().getReference(file_pathname);
+           imageView.setDrawingCacheEnabled(true);
+           imageView.buildDrawingCache();
+           Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+           ByteArrayOutputStream baos = new ByteArrayOutputStream();
+           bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+           byte[] data = baos.toByteArray();
+
+           UploadTask uploadTask = storageReference.putBytes(data);
            storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                @Override
                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                   Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                   while (!uriTask.isSuccessful()){
-                       Uri downlodimgauri = uriTask.getResult();
-                       if(uriTask.isSuccessful()){
-                           HashMap<String,Object> hashMap = new HashMap<>();
-                           hashMap.put("name",nameupdate);
-                           hashMap.put("email",emailupate);
-                           hashMap.put("PhoneNo",phoneupadte);
-                           hashMap.put("image_uri",downlodimgauri);
-                           DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
+                   uploadTask.addOnFailureListener(new OnFailureListener() {
+                       @Override
+                       public void onFailure(@NonNull Exception exception) {
+                           Toast.makeText(getApplicationContext(),"failed to upload image"+exception.getMessage(),Toast.LENGTH_LONG).show();
+                       }
+                   }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                       @Override
+                       public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                           Snackbar.make(findViewById(android.R.id.content),"image upload success",Snackbar.LENGTH_LONG).show();
+                       }
+                   });
+                   while (!uploadTask.isSuccessful()) {
+                       if (uploadTask.isSuccessful()) {
+                           HashMap<String, Object> hashMap = new HashMap<>();
+                           hashMap.put("image_uri", file_pathname);
+                           hashMap.put("name", nameupdate);
+                           hashMap.put("email", emailupate);
+                           hashMap.put("PhoneNo", phoneupadte);
                            reference.child(firebaseAuth.getUid()).updateChildren(hashMap)
                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                        @Override
                                        public void onSuccess(Void unused) {
-                                           Toast.makeText(getApplicationContext(),"profile update...",Toast.LENGTH_SHORT).show();
+                                           Snackbar.make(findViewById(android.R.id.content),"upload profile",Snackbar.LENGTH_LONG).show();
+
+                                           progressDialog.dismiss();
 
                                        }
                                    }).addOnFailureListener(new OnFailureListener() {
                                @Override
                                public void onFailure(@NonNull Exception e) {
-                                   Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                }
                            });
+
                        }
                    }
-               }
-           }).addOnFailureListener(new OnFailureListener() {
-               @Override
-               public void onFailure(@NonNull Exception e) {
-                   Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
 
                }
-           });
+           })
+                   .addOnFailureListener(new OnFailureListener() {
+                       @Override
+                       public void onFailure(@NonNull Exception e) {
+                           Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+
+                       }
+                   });
        }
     }
-//        database = FirebaseDatabase.getInstance();
-//        myRef = database.getReference("Account").child("Users");
-//
-//        Name = name.getText().toString();
-//        e_mail = email.getText().toString().trim();
-//        phone = Integer.valueOf(phonNo.getText().toString());
-//        avatar = randoumkey;
-//
-//
-//        if(Name.isEmpty()){
-//            name.setError("Not Empty filed Allowed... ");
-//            name.requestFocus();
-//            return;
-//        }
-//
-//        if( e_mail.isEmpty()){
-//            email.setError("Not Empty filed Allowed... ");
-//            email.requestFocus();
-//            return;
-//        }
-//
-//
-//        if( phonNo.getText().toString().isEmpty()){
-//            phonNo.setError("Not Empty filed Allowed... ");
-//            phonNo.requestFocus();
-//            return;
-//        }
-//
-//        profile.setAvatar(avatar);
-//        profile.setName(Name);
-//        profile.setEmail(e_mail);
-//        profile.setPhonNo(phone);
-//
-//        // myRef.child(newRandomId).setValue(profile);
-        //uplodpictor();
-//        if (changephone()){
-//            Toast.makeText(EditProfile.this, "your update data...",Toast.LENGTH_LONG).show();
-//        }else {
-//            Toast.makeText(this, "the data is same not change", Toast.LENGTH_SHORT).show();
-//        }
 
+    public void logout(View view) {
+        if (view.getId() == R.id.logout) {
+            firebaseAuth.getInstance().signOut();
+            startActivity(new Intent(EditProfile.this, SignIn.class));
 
-  //  }//037c309808ac
-
-//    private boolean changephone() {
-//        if (!Name.equals(name.getText().toString())){
-//            myRef.child(newRandomId).child("phonNo").setValue(name.getText().toString());
-//            return true;
-//        }else
-//            return false;
-//
-//    }
-
-    //    private boolean changeemail() {
-//    }
-//
-//    private boolean changename() {
-//    }
-//    String user_name , phone_no , email_e;
-//    private void showalldata(){
-//        databaseReference.child(databaseReference.getKey()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DataSnapshot> task) {
-//                if(!task.isSuccessful()){
-//                    Log.e("firebase", "Error getting data", task.getException());
-//
-//                }  else {
-//                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-//                }
-//            }
-////        }).addValueEventListener(new ValueEventListener() {
-////            @Override
-////            public void onDataChange(@NonNull DataSnapshot snapshot) {
-////                String value = snapshot.getValue(String.class);
-////                String email_e = snapshot.getValue(String.class);
-////                String phone_no = snapshot.getValue(String.class);
-////
-////                name.setText(value);
-////                email.setText(email_e);
-////                phonNo.setText(phone_no);
-////            }
-////
-////            @Override
-////            public void onCancelled(@NonNull DatabaseError error) {
-////                Toast.makeText(EditProfile.this, "Fail to get data.", Toast.LENGTH_SHORT).show();
-////
-////            }
-//        });
-
-
-//        Intent intent = getIntent();
-//        user_name = intent.getStringExtra("name");
-//        phone_no = intent.getStringExtra("phoneNo");
-//       email_e = intent.getStringExtra("email");
-
-
-
-        //myRef = database.getReference("Account").child("Users");
-
-
-
+        }
     }
-
-
-
-//changename() || changeemail()||
-
-
-//    profile user1 = new profile();
-//                            user1.setEmail(e_mail);
-//                                    user1.setPhonNo(Integer.valueOf(phone));
-//                                    FirebaseDatabase.getInstance().getReference("Account").child("Users")
-//                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                    .setValue(user1).addOnCompleteListener(new OnCompleteListener<Void>() {
-//@Override
-//public void onComplete(@NonNull Task<Void> task) {
-//        if (task.isSuccessful()) {
-//        Toast.makeText(SignUp.this, "Successfully Register User Created.", Toast.LENGTH_SHORT).show();
-//
-//
-//        } else {
-//        Toast.makeText(SignUp.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//        }
-//        });
-
-
-//
-//
-//    private void isuser() {
-//        String userenteremail = email.getText().toString().trim();
-//        Integer userenterphone = Integer.valueOf(phoneNo.getText().toString().trim());
-//
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account").child("Users");
-//        Query checkuser = reference.orderByChild("email").equalTo(userenteremail);
-//        checkuser.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.exists()){
-//                    String phonenofromdata = snapshot.child(userenteremail).child("phonNo").getValue(String.class);
-//                    if(phonenofromdata.equals(userenterphone)){
-//                        String namefromdata = snapshot.child(String.valueOf(userenterphone)).child("name").getValue(String.class);
-//                        String emailfromdata = snapshot.child(String.valueOf(userenterphone)).child("email").getValue(String.class);
-//                        Intent intent = new Intent(getApplicationContext(),profile.class);
-//                        intent.putExtra("name",namefromdata);
-//                        intent.putExtra("phonNo",phonenofromdata);
-//                        intent.putExtra("email",emailfromdata);
-//                        startActivity(intent);
-//
-//                    }
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
-//});
+}
 
 
 
@@ -559,15 +373,6 @@ updateprofile();
 
 
 
-
-
-
-
-//
-
-
-
-//name.getText().toString(), email.getText().toString(),  phonNo.getText().toString()
 
 
 

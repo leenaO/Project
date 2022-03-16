@@ -30,8 +30,8 @@ public class SignIn extends AppCompatActivity {
     Button signIn, signUp , forgetPassButton;
     EditText Email,pass;
     TextView textView;
-FirebaseAuth firebaseAuth;
-ProgressDialog progressDialog;
+    FirebaseAuth firebaseAuth;
+    ProgressDialog progressDialog;
     String email,password;
 
     @Override
@@ -43,10 +43,10 @@ ProgressDialog progressDialog;
         Email = findViewById(R.id.userName);
         pass = findViewById(R.id.pass);
         forgetPassButton = (Button)findViewById(R.id.forgetPassButton);
-firebaseAuth = FirebaseAuth.getInstance();
-progressDialog = new ProgressDialog(this);
-progressDialog.setTitle("pleas wait...");
-progressDialog.setCanceledOnTouchOutside(false);
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("pleas wait...");
+        progressDialog.setCanceledOnTouchOutside(false);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ progressDialog.setCanceledOnTouchOutside(false);
         forgetPassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  startActivity(new Intent(SignIn.this, Forgetpassword.class));
+                //  startActivity(new Intent(SignIn.this, Forgetpassword.class));
             }
         });
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -75,15 +75,29 @@ progressDialog.setCanceledOnTouchOutside(false);
 
 
     private void loginuser() {
-       email = Email.getText().toString();
-         password = pass.getText().toString();
-         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-             Toast.makeText(SignIn.this, "Fields email pattern..", Toast.LENGTH_LONG).show();
+        email = Email.getText().toString();
+        password = pass.getText().toString();
+        if (TextUtils.isEmpty(email) &&TextUtils.isEmpty(password)) {
+            Email.setError("Please enter your email");
+            pass.setError("Please enter your password");
+            return;
+        }
+        if (TextUtils.isEmpty(email) ) {
+            Email.setError("Please enter your email");
+            return;
+        }
+        if(TextUtils.isEmpty(password)){
+            pass.setError("Please enter your password");
+            return;
 
-         }
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-         Toast.makeText(SignIn.this, "All Fields are Required", Toast.LENGTH_LONG).show();
-         }
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+
+            Toast.makeText(SignIn.this, "Fields email pattern..", Toast.LENGTH_LONG).show();
+            return;
+
+        }
+
         progressDialog.setMessage("Loading");
         progressDialog.show();
         firebaseAuth = FirebaseAuth.getInstance();

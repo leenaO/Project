@@ -11,25 +11,29 @@
         android:id="@+id/pass"
         android:layout_width="263dp"
         android:layout_height="48dp"
-        android:layout_marginStart="74dp"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="enter youe password"
+        android:textSize="15dp"
+        android:hint="Enter your password"
         android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName" />
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        />
 
     <EditText
         android:id="@+id/userName"
         android:layout_width="263dp"
         android:layout_height="48dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="enter your name"
+        android:hint="Enter your email"
+        android:textSize="15dp"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        />
 
     <Button
         android:id="@+id/signInButton"
@@ -62,17 +66,16 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
         android:text="Sign in"
         android:textColor="#718E37"
         android:textSize="24dp"
         android:textStyle="bold"
-
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/userName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
