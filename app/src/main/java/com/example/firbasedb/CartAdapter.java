@@ -9,28 +9,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.helper.widget.Layer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class prodectaddpter extends FirebaseRecyclerAdapter<classprodect,prodectaddpter.myviewholder> {
+public class CartAdapter extends FirebaseRecyclerAdapter<Product, CartAdapter.myviewholder> {
 
 
 
-   public prodectaddpter(@NonNull FirebaseRecyclerOptions options) {
+   public CartAdapter(@NonNull FirebaseRecyclerOptions options) {
       super(options);
    }
 
    @Override
-   protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull classprodect model) {
-      holder.item_title.setText(model.getNameitem());
-      holder.priceitem.setText(model.getPricitem());
-      holder.quantetitem.setText(model.getQuanteitem());
+   protected void onBindViewHolder(@NonNull myviewholder holder, int position, @NonNull Product model) {
+      holder.item_title.setText(model.getName());
+      holder.priceitem.setText(model.getPrice());
+      holder.quantetitem.setText(model.getAmount());
       Glide.with(holder.imageProdect.getContext())
-              .load(model.getUriitem())
+              .load(model.getImage())
               .placeholder(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark)
               .error(com.google.firebase.storage.R.drawable.common_google_signin_btn_icon_dark_normal)
               .into(holder.imageProdect);
@@ -62,9 +61,9 @@ int quntity =0;
       plus = (Button) itemView.findViewById(R.id.addprodect);
       mines= (Button) itemView.findViewById(R.id.remove);
       totleprice = (TextView)itemView.findViewById(R.id.price);
-      classprodect classprodect = new classprodect();
-      String pric_count = classprodect.getPricitem();
-      String quntit = classprodect.getQuanteitem();
+      Product classprodect = new Product();
+      String pric_count = classprodect.getPrice();
+      String quntit = classprodect.getAmount();
 //      String image = classprodect.getUriitem();
 //      String title_prodect = classprodect.getNameitem();
 //      String totle_pric = classprodect.getTotlepriceitem();
