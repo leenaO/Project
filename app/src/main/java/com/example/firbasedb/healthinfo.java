@@ -105,32 +105,16 @@ profile healthinfo;
 
         switch (view.getId()) {
             case R.id.female:
-
-    gender = "female";
-    female.setPressed(true);
-    result1 = 655.1 + (9.563 * entrwight) + (1.85 * entrheight) - (4.676 * age);
-    res.setText(String.valueOf(result1));
-    if (Age.getText().toString().isEmpty()) {
-        Toast.makeText(getApplicationContext(), "Age is Incorrect", Toast.LENGTH_SHORT).show();
-
-    }
-    if (wight.getText().toString().isEmpty()) {
-        Toast.makeText(getApplicationContext(), "Height is Incorrect", Toast.LENGTH_SHORT).show();
-
-    }
-    if (height.getText().toString().isEmpty()) {
-        Toast.makeText(getApplicationContext(), "Wight is Incorrect", Toast.LENGTH_SHORT).show();
-
-    }
-
+                gender = "female";
+                female.setPressed(true);
+                result1 = 655.1 + (9.563 * entrwight) + (1.85 * entrheight) - (4.676 * age);
+                res.setText(String.valueOf(result1));
                 break;
 
             case R.id.male:
                 gender="male";
                 male.setPressed(true);
                 result = 66.47 + (13.75 * entrwight) + (5.003 * entrheight) - (6.755 * age);
-
-
                 //Toast.makeText(getApplicationContext(),"the result"+result,Toast.LENGTH_LONG).show();
                 res.setText(String.valueOf(result));
                 break;
@@ -277,10 +261,12 @@ profile healthinfo;
     }
 
     public void Calculate(View view) {
-
-
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("user").child("healthinfo");
+        if(gender.isEmpty() || gender.equals("null")){
+            Toast.makeText(getApplicationContext(),"please choices your gender",Toast.LENGTH_LONG).show();
+        }
+
         if(age ==0 || age <0 || Age.getText().toString().isEmpty() ){
             Toast.makeText(getApplicationContext(),"Age is Incorrect",Toast.LENGTH_SHORT).show();
 
@@ -301,7 +287,7 @@ healthinfo.setGender(gender);
 healthinfo.setAllrgy(item);
 healthinfo.setCalure(res.getText().toString() );
 myRef.push().setValue(healthinfo);
-Toast.makeText(getApplicationContext(),"insert successfuly",Toast.LENGTH_LONG).show();
+Toast.makeText(getApplicationContext(),"Insert successfully",Toast.LENGTH_LONG).show();
 
     }
 
@@ -309,11 +295,12 @@ Toast.makeText(getApplicationContext(),"insert successfuly",Toast.LENGTH_LONG).s
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         item = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(getApplicationContext(),"item"+item,Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"item selected is:"+item,Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+        Toast.makeText(getApplicationContext(),"Nothing selected...",Toast.LENGTH_LONG).show();
 
     }
 }

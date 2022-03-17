@@ -5,6 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddRecipePage">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="340dp"
+        android:layout_height="90dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/addpname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/take_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toEndOf="@+id/photo_rcipe"
+                android:gravity="center"
+                android:onClick="add_Image"
+                android:text="Take a picture of the recipe" />
+
+            <ImageView
+                android:id="@+id/photo_rcipe"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="19dp"
+                android:layout_marginBottom="0dp"
+                android:src="@drawable/camera" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
@@ -19,54 +66,40 @@
         app:layout_constraintVertical_bias="0.103" />
 
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="341dp"
-        android:layout_height="79dp"
-        android:background="@drawable/manager_layout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.471"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.19">
+<!--    <TextView-->
+<!--        android:id="@+id/take_picture"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginStart="19dp"-->
+<!--        android:gravity="left|center"-->
+<!--        android:text="Take a picture of the recipe"-->
+<!--        android:textColor="#000000"-->
+<!--        android:textSize="15sp"-->
+<!--        android:onClick="add_post"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/addpname"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.3"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/photo_rcipe"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView6"-->
+<!--        app:layout_constraintVertical_bias="0.17" />-->
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="50dp"
-            android:layout_height="32dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="21dp"
-            android:layout_marginLeft="21dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="270dp"
-            android:layout_marginRight="270dp"
-            android:layout_marginBottom="25dp"
-            android:background="@drawable/camera" />
+<!--    <ImageView-->
+<!--                android:id="@+id/photo_rcipe"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@mipmap/ic_menu_gallery"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.158"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.147" />-->
 
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="249dp"
-            android:layout_height="45dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="77dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="Take a picture of the recipe"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-
-
-    </RelativeLayout>
 
 
     <EditText
@@ -146,6 +179,7 @@
         android:layout_height="36dp"
         android:background="@drawable/manager_button"
         android:text="Add"
+        android:onClick="add_post"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
@@ -155,7 +189,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/howtomake"
         android:layout_width="341dp"
         android:layout_height="79dp"
         android:layout_marginStart="93dp"
@@ -172,5 +206,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.55" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
