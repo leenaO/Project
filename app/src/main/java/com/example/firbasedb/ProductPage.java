@@ -2,9 +2,7 @@ package com.example.firbasedb;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -22,14 +20,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class RecipePage extends AppCompatActivity {
+public class ProductPage extends AppCompatActivity {
     private static final String TAG = "RecipePage";
     //CircularProgressIndicator progress_circular;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     private Context mContext;
     private Activity mActivity;
-    private ArrayList<Recipe> recipeList;
+    private ArrayList<Recipe> imagesList;
     private ImageAdapter imageAdapter = null;
     ImageButton prev;
 
@@ -38,7 +36,7 @@ public class RecipePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_page);
 
-        mActivity = RecipePage.this;
+        mActivity = ProductPage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
 
@@ -48,18 +46,18 @@ public class RecipePage extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false));
         recyclerView.setNestedScrollingEnabled(false);
-        recipeList = new ArrayList<>();
+        imagesList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("recipe");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                recipeList.clear();
+                imagesList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Recipe imagemodel = dataSnapshot.getValue(Recipe.class);
-                    recipeList.add(imagemodel);
+                    imagesList.add(imagemodel);
                 }
-                imageAdapter = new ImageAdapter(mContext,mActivity, (ArrayList<Recipe>) recipeList);
+                imageAdapter = new ImageAdapter(mContext,mActivity, (ArrayList<Recipe>) imagesList);
                 recyclerView.setAdapter(imageAdapter);
                 imageAdapter.notifyDataSetChanged();
                 //progress_circular.setVisibility(View.GONE);
@@ -69,7 +67,7 @@ public class RecipePage extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(RecipePage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductPage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
 

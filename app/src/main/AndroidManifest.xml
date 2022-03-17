@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirbaseDB">
         <activity
-            android:name=".SignIn"
+            android:name=".RecipePage"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HomePage"
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".EditProfile"
             android:label="@string/app_name"></activity>

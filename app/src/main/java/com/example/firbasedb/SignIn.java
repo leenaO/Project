@@ -109,7 +109,7 @@ public class SignIn extends AppCompatActivity {
                         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                         if(currentUser != null){
                             progressDialog.setMessage("Sing in Account ...");
-                            startActivity(new Intent(SignIn.this, EditProfile.class ));
+                            startActivity(new Intent(SignIn.this, HomePage.class ));
                         }
 
 

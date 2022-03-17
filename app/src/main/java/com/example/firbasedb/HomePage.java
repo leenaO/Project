@@ -25,9 +25,9 @@ public class HomePage extends AppCompatActivity {
         rv2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
 
-        ArrayList<Product> products = new ArrayList<>();
-        products.add(new Product("", "Low-Fat Milk"));
-        rv1.setAdapter(new Recycler(products));
+        //ArrayList<Product> products = new ArrayList<>();
+        //products.add(new Product("", "Low-Fat Milk"));
+        //rv1.setAdapter(new Recycler(products));
 
         //ArrayList<Recipe> recipes = new ArrayList<>();
         /**recipes.add(new Recipe(R.drawable.chicken, "Chicken"));

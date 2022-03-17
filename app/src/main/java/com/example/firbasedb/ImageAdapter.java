@@ -47,7 +47,7 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             super(itemView);
 
             // Find all views ids
-            cardView = (CardView) itemView.findViewById(R.id.card_view_top);
+            cardView = (CardView) itemView.findViewById(R.id.recipeCard);
             rImg = (ImageView) itemView.findViewById(R.id.recipeImg);
             rName = (TextView) itemView.findViewById(R.id.recipeName);
             rMaker = (TextView) itemView.findViewById(R.id.recipeMaker);
