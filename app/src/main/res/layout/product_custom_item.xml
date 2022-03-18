@@ -104,13 +104,14 @@
 
             <Button
                 android:id="@+id/minus"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_marginStart="84dp"
                 android:layout_marginTop="142dp"
                 android:layout_toRightOf="@+id/price"
                 android:background="@drawable/button_circle_product"
                 android:text="-"
+
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="11sp"
@@ -127,13 +128,13 @@
                 android:layout_toRightOf="@+id/price"
                 android:text="1"
                 android:textColor="@color/black"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:textStyle="normal" />
 
             <Button
                 android:id="@+id/plus"
-                android:layout_width="13dp"
-                android:layout_height="13dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_marginStart="110dp"
                 android:layout_marginTop="142dp"
                 android:layout_toRightOf="@+id/price"

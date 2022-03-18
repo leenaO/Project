@@ -20,6 +20,12 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Activity mActivity;
     private ArrayList<Recipe> mContentList;
 
+    public void setFilteredList(ArrayList<Recipe> recipeList){
+        this.mContentList=recipeList;
+        notifyDataSetChanged();
+
+    }
+
     public ImageAdapter(Context mContext, Activity mActivity, ArrayList<Recipe> mContentList) {
 
         this.mContext = mContext;
