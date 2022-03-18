@@ -50,6 +50,7 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
 
+
         public ViewHolder(View itemView, int viewType) {
             super(itemView);
 
