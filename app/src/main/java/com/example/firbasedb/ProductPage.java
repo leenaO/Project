@@ -27,20 +27,20 @@ public class ProductPage extends AppCompatActivity {
     DatabaseReference databaseReference;
     private Context mContext;
     private Activity mActivity;
-    private ArrayList<Recipe> imagesList;
-    private ImageAdapter imageAdapter = null;
+    private ArrayList<Product> imagesList;
+    private ProdAdapter prodAdapter = null;
     ImageButton prev;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_page);
+        setContentView(R.layout.activity_product_page);
 
         mActivity = ProductPage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
 
-        recyclerView = findViewById(R.id.rvRecipe);
+        recyclerView = findViewById(R.id.rvProduct);
         //progress_circular = findViewById(R.id.progress_circular);
 
         recyclerView.setHasFixedSize(true);
@@ -48,18 +48,18 @@ public class ProductPage extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(false);
         imagesList = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("recipe");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 imagesList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Recipe imagemodel = dataSnapshot.getValue(Recipe.class);
+                    Product imagemodel = dataSnapshot.getValue(Product.class);
                     imagesList.add(imagemodel);
                 }
-                imageAdapter = new ImageAdapter(mContext,mActivity, (ArrayList<Recipe>) imagesList);
-                recyclerView.setAdapter(imageAdapter);
-                imageAdapter.notifyDataSetChanged();
+                prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) imagesList);
+                recyclerView.setAdapter(prodAdapter);
+                prodAdapter.notifyDataSetChanged();
                 //progress_circular.setVisibility(View.GONE);
 
             }
