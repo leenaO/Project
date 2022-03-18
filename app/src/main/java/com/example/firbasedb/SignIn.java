@@ -29,15 +29,14 @@ public class SignIn extends AppCompatActivity {
 
     Button signIn, signUp , forgetPassButton;
     EditText Email,pass;
-    TextView textView;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
     String email,password;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        getSupportActionBar().hide();
         signIn = findViewById(R.id.signInButton);
         signUp = findViewById(R.id.signUptButton);
         Email = findViewById(R.id.userName);
@@ -57,7 +56,7 @@ public class SignIn extends AppCompatActivity {
         forgetPassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  startActivity(new Intent(SignIn.this, Forgetpassword.class));
+                startActivity(new Intent(SignIn.this, forgetpassword.class));
             }
         });
         signIn.setOnClickListener(new View.OnClickListener() {
