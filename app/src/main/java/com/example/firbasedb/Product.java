@@ -6,22 +6,33 @@ public class Product {
     String section;
     String amount;
     String price;
+    String totalPrice;
 
     public Product() {
 
     }
+
 
     public Product(String image, String name) {
         this.image = image;
         this.name = name;
     }
 
-    public Product(String image, String name, String section, String amount, String price) {
+    public Product(String image, String name, String section, String amount, String price,String totalPrice) {
         this.image = image;
         this.name = name;
         this.section = section;
         this.amount = amount;
         this.price = price;
+        this.totalPrice=totalPrice;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public void setPrice(String price) {
