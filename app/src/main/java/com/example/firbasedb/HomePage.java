@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
     RecyclerView rv2,rv1;
-    Button showRecipe;
+    Button showRecipe,showProduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,13 @@ public class HomePage extends AppCompatActivity {
         recipes.add(new Recipe(R.drawable.rice, "Rice"));
         recipes.add(new Recipe(R.drawable.pasta, "Pasta"));
         rv2.setAdapter(new RecyclerViewAdapter(recipes));*/
+        showProduct=findViewById(R.id.showProductsButton);
+        showProduct.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(HomePage.this,ProductPage.class));
+            }
+        });
 
         showRecipe=findViewById(R.id.showRecipeButton);
         showRecipe.setOnClickListener(new View.OnClickListener(){

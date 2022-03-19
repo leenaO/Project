@@ -2,6 +2,7 @@ package com.example.firbasedb;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ProductPage extends AppCompatActivity {
     private static final String TAG = "ProductPage";
@@ -34,7 +37,11 @@ public class ProductPage extends AppCompatActivity {
     private ProdAdapter prodAdapter = null;
     ImageButton prev;
     private SearchView searchView;
-    Button frozen,cann,dairy,fresh;
+
+    Button all,frozen,cann,dairy,fresh;
+    ArrayList<Product> filteredSection;
+
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,53 @@ public class ProductPage extends AppCompatActivity {
         mActivity = ProductPage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
+
+        all=findViewById(R.id.allProduct);
+        frozen=findViewById(R.id.frozen);
+        cann=findViewById(R.id.canned);
+        dairy=findViewById(R.id.dairy);
+        fresh=findViewById(R.id.fresh);
+        Button[] category={all,frozen,cann,dairy,fresh};
+
+
+
+        all.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                section("all",all,category);
+            }
+        });
+
+        frozen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section("frozen",frozen,category);
+            }
+        });
+
+        cann.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section("canned",cann,category);
+            }
+        });
+
+        dairy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section("dairy",dairy,category);
+            }
+        });
+
+        fresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                section("fresh",fresh,category);
+            }
+        });
         searchView=findViewById(R.id.searchBarProduct);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -56,35 +110,6 @@ public class ProductPage extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 filterList(newText);
                 return true;
-            }
-        });
-        frozen=findViewById(R.id.frozen);
-        frozen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                section("frozen");
-            }
-        });
-        cann=findViewById(R.id.canned);
-        cann.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                section("canned");
-            }
-        });
-        dairy=findViewById(R.id.dairy);
-        cann.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                section("dairy");
-            }
-        });
-        fresh=findViewById(R.id.fresh);
-        fresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                section("fresh");
             }
         });
 
@@ -119,42 +144,53 @@ public class ProductPage extends AppCompatActivity {
                 Toast.makeText(ProductPage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
-
-        /**prev = findViewById(R.id.previousButton);
+        prev = findViewById(R.id.previousButtonProduct);
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RecipePage.this, HomePage.class));
+                startActivity(new Intent(ProductPage.this, HomePage.class));
             }
-        });*/
+        });
 
 
     }
     private void filterList(String newText) {
         ArrayList<Product> filteredList=new ArrayList<>();
-        for(Product product: productsList){
+        for(Product product: filteredSection){
             if(product.getName().toLowerCase().contains(newText.toLowerCase())){
                 filteredList.add(product);
             }
         }
         if(filteredList.isEmpty()){
+            prodAdapter.setFilteredList(filteredList);
             Toast.makeText(this,"Can't find this product",Toast.LENGTH_LONG).show();
         }else{
             prodAdapter.setFilteredList(filteredList);
 
         }
     }
-    private void section(String sec){
-        ArrayList<Product> filteredList=new ArrayList<>();
+    private void section(String sec,Button b,Button[] c){
+        for(int i=0;i<c.length;i++){
+            c[i].setBackground(getResources().getDrawable(R.drawable.button_categ2));
+        }
+
+        b.setBackground(getResources().getDrawable(R.drawable.button_categ));
+
+
+        filteredSection=new ArrayList<>();
+        if((sec.toLowerCase()).equals("all")){
+            filteredSection=productsList;
+        }else{
         for(Product product: productsList){
             if(product.getSection().toLowerCase().contains(sec.toLowerCase())){
-                filteredList.add(product);
+                filteredSection.add(product);
             }
-        }
-        if(filteredList.isEmpty()){
-            Toast.makeText(ProductPage.this,"Can't find this product",Toast.LENGTH_LONG).show();
+        }}
+        if(filteredSection.isEmpty()){
+            prodAdapter.setFilteredList(filteredSection);
+            Toast.makeText(ProductPage.this,"There is no products in "+sec+" section",Toast.LENGTH_LONG).show();
         }else{
-            prodAdapter.setFilteredList(filteredList);
+            prodAdapter.setFilteredList(filteredSection);
 
         }
 

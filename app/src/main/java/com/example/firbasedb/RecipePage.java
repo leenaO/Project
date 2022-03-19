@@ -90,13 +90,13 @@ public class RecipePage extends AppCompatActivity {
             }
         });
 
-        /**prev = findViewById(R.id.previousButton);
+        prev = findViewById(R.id.previousButton);
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RecipePage.this, HomePage.class));
             }
-        });*/
+        });
 
 
     }

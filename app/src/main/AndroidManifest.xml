@@ -19,11 +19,15 @@
             android:exported="false" />
         <activity
             android:name=".RecipePage"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+
+            android:exported="false"/>
+        <activity
+            android:name=".ProductPage"
+
             android:exported="false"/>
 
         <activity
-            android:name=".ProductPage"
+            android:name=".HomePage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
