@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,11 +15,21 @@ import java.util.ArrayList;
 public class HomePage extends AppCompatActivity {
     RecyclerView rv2,rv1;
     Button showRecipe,showProduct;
+    CardView kCard,lCard,vCaed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        kCard=(CardView) findViewById(R.id.ketoCard);
+        lCard=(CardView) findViewById(R.id.lowCard);
+        vCaed=(CardView) findViewById(R.id.veganCard);
+        kCard.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(HomePage.this,KetoPage.class));
+            }
+        });
         rv1 = (RecyclerView) findViewById(R.id.rvhome1);
         rv1.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         rv2 = (RecyclerView) findViewById(R.id.rvhome2);

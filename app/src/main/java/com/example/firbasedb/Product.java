@@ -7,6 +7,25 @@ public class Product {
     String amount;
     String price;
     String totalPrice;
+    boolean keto;
+
+    public boolean isKeto() {
+        return keto;
+    }
+
+    public void setKeto(boolean keto) {
+        this.keto = keto;
+    }
+
+    public Product(String image, String name, String section, String amount, String price, String totalPrice, boolean keto) {
+        this.image = image;
+        this.name = name;
+        this.section = section;
+        this.amount = amount;
+        this.price = price;
+        this.totalPrice = totalPrice;
+        this.keto = keto;
+    }
 
     public Product() {
 

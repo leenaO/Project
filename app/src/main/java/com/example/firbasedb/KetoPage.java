@@ -22,18 +22,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class ProductPage extends AppCompatActivity {
-    private static final String TAG = "ProductPage";
+public class KetoPage extends AppCompatActivity {
+    private static final String TAG = "KetoPage";
     //CircularProgressIndicator progress_circular;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     private Context mContext;
     private Activity mActivity;
-    private ArrayList<Product> productsList;
+    private ArrayList<Product> ketoProductsList;
     private ProdAdapter prodAdapter = null;
     ImageButton prev;
     private SearchView searchView;
@@ -48,7 +46,7 @@ public class ProductPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
 
-        mActivity = ProductPage.this;
+        mActivity = KetoPage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
 
@@ -120,19 +118,21 @@ public class ProductPage extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false));
         recyclerView.setNestedScrollingEnabled(false);
-        productsList = new ArrayList<>();
+        ketoProductsList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                productsList.clear();
+                ketoProductsList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Product imagemodel = dataSnapshot.getValue(Product.class);
-
-                    productsList.add(imagemodel);
+                    boolean keto=imagemodel.isKeto();
+                    if(keto) {
+                        ketoProductsList.add(imagemodel);
+                    }
                 }
-                prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) productsList);
+                prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) ketoProductsList);
                 recyclerView.setAdapter(prodAdapter);
                 prodAdapter.notifyDataSetChanged();
                 //progress_circular.setVisibility(View.GONE);
@@ -142,14 +142,14 @@ public class ProductPage extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(ProductPage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(KetoPage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
         prev = findViewById(R.id.previousButtonProduct);
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProductPage.this, HomePage.class));
+                startActivity(new Intent(KetoPage.this, HomePage.class));
             }
         });
 
@@ -180,16 +180,16 @@ public class ProductPage extends AppCompatActivity {
 
         filteredSection=new ArrayList<>();
         if((sec.toLowerCase()).equals("all")){
-            filteredSection=productsList;
+            filteredSection=ketoProductsList;
         }else{
-        for(Product product: productsList){
+        for(Product product: ketoProductsList){
             if(product.getSection().toLowerCase().contains(sec.toLowerCase())){
                 filteredSection.add(product);
             }
         }}
         if(filteredSection.isEmpty()){
             prodAdapter.setFilteredList(filteredSection);
-            Toast.makeText(ProductPage.this,"There is no products in "+sec+" section",Toast.LENGTH_LONG).show();
+            Toast.makeText(KetoPage.this,"There is no products in "+sec+" section",Toast.LENGTH_LONG).show();
         }else{
             prodAdapter.setFilteredList(filteredSection);
 

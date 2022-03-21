@@ -6,21 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".KhiarAddPage">
 
+    <Button
+        android:id="@+id/ingredients"
+        android:layout_width="336dp"
+        android:layout_height="36dp"
+        android:background="@drawable/manager_button"
+
+        android:text="Product's ingredients"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.82"
+        tools:ignore="TouchTargetSizeCheck" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="cursive"
         android:text="Add Product"
-        android:textColor="#718E37"
-        android:textSize="30sp"
-        android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132" />
+        app:layout_constraintVertical_bias="0.161" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -34,7 +46,6 @@
         app:layout_constraintVertical_bias="0.023"
         tools:srcCompat="@tools:sample/avatars" />
 
-
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -42,90 +53,64 @@
         android:text="username"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.067" />
 
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-        android:background="@drawable/manager_lay"
+        android:layout_width="334dp"
+        android:layout_height="67dp"
+        android:background="@drawable/manager_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245">
+        app:layout_constraintVertical_bias="0.221">
 
         <ImageView
-            android:id="@+id/fPicture"
-            android:layout_width="50dp"
-            android:layout_height="37dp"
+            android:id="@+id/imageView3"
+            android:layout_width="55dp"
+            android:layout_height="33dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="273dp"
+            android:layout_marginRight="273dp"
+            android:layout_marginBottom="30dp" />
 
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="20dp"
-
-            android:background="@drawable/camera" />
-
-        <TextView
-            android:id="@+id/textView25"
-            android:layout_width="249dp"
-            android:layout_height="45dp"
-            android:layout_below="@+id/fPicture"
-            android:layout_alignParentStart="true"
-
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="front picture"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="120dp"
-        android:layout_height="100dp"
-
-        android:background="@drawable/manager_lay"
-        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/relativeLayout"
-        app:layout_constraintTop_toTopOf="@+id/relativeLayout">
-
-        <ImageView
-            android:id="@+id/bPicture"
-            android:layout_width="50dp"
-            android:layout_height="37dp"
+        <Button
+            android:id="@+id/textView5"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="248dp"
+            android:layout_height="57dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="20dp"
-
-            android:background="@drawable/camera" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="249dp"
-            android:layout_height="45dp"
-            android:layout_below="@+id/bPicture"
-            android:layout_alignParentStart="true"
-
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="back picture"
-            android:textColor="#000000"
-            android:textSize="16sp" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="66dp"
+            android:layout_marginLeft="66dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginRight="27dp"
+            android:layout_marginBottom="15dp"
+            android:background="#FFFFFF"
+            android:shadowColor="#00FFFFFF"
+            android:text="Take a picture of the product"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
@@ -133,15 +118,16 @@
         android:id="@+id/addpname"
         android:layout_width="336dp"
         android:layout_height="52dp"
-        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Product name"
         android:inputType="textPersonName"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.332" />
 
     <EditText
         android:id="@+id/addpprice"
@@ -153,14 +139,16 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Product price"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/addpname"
-        app:layout_constraintStart_toStartOf="@+id/addpname"
-        app:layout_constraintTop_toBottomOf="@+id/addpname" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425" />
 
     <EditText
         android:id="@+id/addpamount"
@@ -172,29 +160,30 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Product amount"
         android:inputType="textPersonName"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/addpprice"
-        app:layout_constraintStart_toStartOf="@+id/addpprice"
-        app:layout_constraintTop_toBottomOf="@+id/addpprice" />
-
-    <Button
-        android:id="@+id/addp"
-        android:layout_width="336dp"
-        android:layout_height="36dp"
-        android:background="@drawable/button_green"
-        android:text="Add"
-        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.903"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintVertical_bias="0.522" />
+
+    <TextView
+        android:layout_width="335dp"
+        android:layout_height="59dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.625"
+        android:hint="Product Ingredients"
+        android:id="@+id/ProductIngredientsTV">
+
+    </TextView>
 
     <RelativeLayout
         android:id="@+id/relativeLayout5"
@@ -206,7 +195,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.796">
+        app:layout_constraintVertical_bias="0.73">
 
         <Spinner
             android:id="@+id/spinner"
@@ -218,15 +207,32 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="-1dp"
+            android:layout_marginEnd="-2dp"
+            android:layout_marginRight="-2dp"
+            android:layout_marginBottom="1dp"
             android:addStatesFromChildren="false"
             android:spinnerMode="dropdown"
             tools:ignore="SpeakableTextPresentCheck" />
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/addp"
+        android:layout_width="336dp"
+        android:layout_height="36dp"
+        android:background="@drawable/manager_button"
+        android:text="Add"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.903"
+        tools:ignore="TouchTargetSizeCheck" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
