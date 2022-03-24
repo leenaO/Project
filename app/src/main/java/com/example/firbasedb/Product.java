@@ -8,6 +8,24 @@ public class Product {
     String price;
     String totalPrice;
     boolean keto;
+    boolean sugarFree;
+    boolean vegan;
+
+    public boolean isSugarFree() {
+        return sugarFree;
+    }
+
+    public void setSugarFree(boolean sugarFree) {
+        this.sugarFree = sugarFree;
+    }
+
+    public boolean isVegan() {
+        return vegan;
+    }
+
+    public void setVegan(boolean vegan) {
+        this.vegan = vegan;
+    }
 
     public boolean isKeto() {
         return keto;
@@ -17,7 +35,7 @@ public class Product {
         this.keto = keto;
     }
 
-    public Product(String image, String name, String section, String amount, String price, String totalPrice, boolean keto) {
+    public Product(String image, String name, String section, String amount, String price, String totalPrice, boolean keto,boolean sugarFree,boolean vegan) {
         this.image = image;
         this.name = name;
         this.section = section;
@@ -25,6 +43,8 @@ public class Product {
         this.price = price;
         this.totalPrice = totalPrice;
         this.keto = keto;
+        this.sugarFree=sugarFree;
+        this.vegan=vegan;
     }
 
     public Product() {

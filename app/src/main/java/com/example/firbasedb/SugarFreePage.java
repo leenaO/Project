@@ -25,14 +25,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class KetoPage extends AppCompatActivity {
-    private static final String TAG = "KetoPage";
+public class SugarFreePage extends AppCompatActivity {
+    private static final String TAG = "SugarFreePage";
     //CircularProgressIndicator progress_circular;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     private Context mContext;
     private Activity mActivity;
-    private ArrayList<Product> ketoProductsList;
+    private ArrayList<Product> sugarFreeProductsList;
     private ProdAdapter prodAdapter = null;
     ImageButton prev;
     private SearchView searchView;
@@ -48,9 +48,9 @@ public class KetoPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
         text=findViewById(R.id.productTitle);
-        text.setText("Keto Products");
+        text.setText("Sugar-Free Products");
 
-        mActivity = KetoPage.this;
+        mActivity = SugarFreePage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
 
@@ -142,24 +142,24 @@ public class KetoPage extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false));
         recyclerView.setNestedScrollingEnabled(false);
-        ketoProductsList = new ArrayList<>();
+        sugarFreeProductsList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ketoProductsList.clear();
+                sugarFreeProductsList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Product imagemodel = dataSnapshot.getValue(Product.class);
-                    boolean keto=imagemodel.isKeto();
-                    if(keto) {
-                        ketoProductsList.add(imagemodel);
+                    boolean sugarFree=imagemodel.isSugarFree();
+                    if(sugarFree) {
+                        sugarFreeProductsList.add(imagemodel);
                     }
                 }
-                prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) ketoProductsList);
+                prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) sugarFreeProductsList);
                 recyclerView.setAdapter(prodAdapter);
                 prodAdapter.notifyDataSetChanged();
-                filteredSection=ketoProductsList;
+                filteredSection=sugarFreeProductsList;
                 //progress_circular.setVisibility(View.GONE);
 
             }
@@ -167,14 +167,14 @@ public class KetoPage extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                Toast.makeText(KetoPage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(SugarFreePage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
         prev = findViewById(R.id.previousButtonProduct);
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(KetoPage.this, HomePage.class));
+                startActivity(new Intent(SugarFreePage.this, HomePage.class));
             }
         });
 
@@ -205,16 +205,16 @@ public class KetoPage extends AppCompatActivity {
 
         filteredSection=new ArrayList<>();
         if((sec.toLowerCase()).equals("all")){
-            filteredSection=ketoProductsList;
+            filteredSection=sugarFreeProductsList;
         }else{
-        for(Product product: ketoProductsList){
+        for(Product product: sugarFreeProductsList){
             if(product.getSection().toLowerCase().contains(sec.toLowerCase())){
                 filteredSection.add(product);
             }
         }}
         if(filteredSection.isEmpty()){
             prodAdapter.setFilteredList(filteredSection);
-            Toast.makeText(KetoPage.this,"There is no products in "+sec+" section",Toast.LENGTH_LONG).show();
+            Toast.makeText(SugarFreePage.this,"There is no products in "+sec+" section",Toast.LENGTH_LONG).show();
         }else{
             prodAdapter.setFilteredList(filteredSection);
 

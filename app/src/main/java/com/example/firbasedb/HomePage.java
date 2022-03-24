@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class HomePage extends AppCompatActivity {
     RecyclerView rv2,rv1;
     Button showRecipe,showProduct;
-    CardView kCard,lCard,vCaed;
+    CardView kCard,lCard,vCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,24 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
         kCard=(CardView) findViewById(R.id.ketoCard);
         lCard=(CardView) findViewById(R.id.lowCard);
-        vCaed=(CardView) findViewById(R.id.veganCard);
+        vCard=(CardView) findViewById(R.id.veganCard);
+
         kCard.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 startActivity(new Intent(HomePage.this,KetoPage.class));
+            }
+        });
+        lCard.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(HomePage.this,SugarFreePage.class));
+            }
+        });
+        vCard.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(HomePage.this,VeganPage.class));
             }
         });
         rv1 = (RecyclerView) findViewById(R.id.rvhome1);

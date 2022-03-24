@@ -25,6 +25,18 @@
             android:name=".ProductPage"
 
             android:exported="false"/>
+        <activity
+            android:name=".KetoPage"
+
+            android:exported="false"/>
+        <activity
+            android:name=".SugarFreePage"
+
+            android:exported="false"/>
+        <activity
+            android:name=".VeganPage"
+
+            android:exported="false"/>
 
         <activity
             android:name=".HomePage"

@@ -38,7 +38,7 @@ public class ProductPage extends AppCompatActivity {
     ImageButton prev;
     private SearchView searchView;
 
-    Button all,frozen,cann,dairy,fresh;
+    Button all,frozen,cann,dairy,fresh,snacks,drinks;
     ArrayList<Product> filteredSection;
 
 
@@ -57,7 +57,9 @@ public class ProductPage extends AppCompatActivity {
         cann=findViewById(R.id.canned);
         dairy=findViewById(R.id.dairy);
         fresh=findViewById(R.id.fresh);
-        Button[] category={all,frozen,cann,dairy,fresh};
+        snacks=findViewById(R.id.snack);
+        drinks=findViewById(R.id.drinks);
+        Button[] category={all,frozen,cann,dairy,fresh,snacks,drinks};
 
 
 
@@ -98,20 +100,21 @@ public class ProductPage extends AppCompatActivity {
                 section("fresh",fresh,category);
             }
         });
-        searchView=findViewById(R.id.searchBarProduct);
-        searchView.clearFocus();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        snacks.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+            public void onClick(View v) {
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                filterList(newText);
-                return true;
+                section("snacks",snacks,category);
             }
         });
+        drinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                section("drinks",drinks,category);
+            }
+        });
+
 
 
         recyclerView = findViewById(R.id.rvProduct);
@@ -135,6 +138,7 @@ public class ProductPage extends AppCompatActivity {
                 prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) productsList);
                 recyclerView.setAdapter(prodAdapter);
                 prodAdapter.notifyDataSetChanged();
+                filteredSection=productsList;
                 //progress_circular.setVisibility(View.GONE);
 
             }
@@ -143,6 +147,21 @@ public class ProductPage extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
                 Toast.makeText(ProductPage.this,"Error:" + error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        searchView=findViewById(R.id.searchBarProduct);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
             }
         });
         prev = findViewById(R.id.previousButtonProduct);
