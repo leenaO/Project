@@ -2,13 +2,18 @@ package com.example.firbasedb;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
@@ -16,11 +21,38 @@ public class HomePage extends AppCompatActivity {
     RecyclerView rv2,rv1;
     Button showRecipe,showProduct;
     CardView kCard,lCard,vCard;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        bottomNavigationView=findViewById(R.id.nav_view_h);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        startActivity(new Intent(HomePage.this,RecipePage.class));
+                        break;
+                    case R.id.nav_fav:
+                        startActivity(new Intent(HomePage.this,ProductPage.class));
+                        break;
+                    case R.id.nav_basket:
+                        startActivity(new Intent(HomePage.this,mycart.class));
+                        break;
+                    case R.id.nav_add_recipe:
+                        startActivity(new Intent(HomePage.this,AddRecipePage.class));
+                        break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(HomePage.this,EditProfile.class));
+                        break;
+
+
+                }
+                return true;
+            }
+        });
         kCard=(CardView) findViewById(R.id.ketoCard);
         lCard=(CardView) findViewById(R.id.lowCard);
         vCard=(CardView) findViewById(R.id.veganCard);

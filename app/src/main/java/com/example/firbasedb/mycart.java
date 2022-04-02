@@ -35,7 +35,7 @@ CartAdapter CartAdapter;
         database = FirebaseDatabase.getInstance();
         FirebaseRecyclerOptions<Product> options =
                 new FirebaseRecyclerOptions.Builder<Product>()
-                        .setQuery( database.getReference("my_cart").child("Prodects"), Product.class)
+                        .setQuery( database.getReference("my_cart").child("Products"), Product.class)
                         .build();
 
 
