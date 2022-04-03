@@ -15,7 +15,11 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +28,9 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class ProductPage extends AppCompatActivity {
     private static final String TAG = "ProductPage";
@@ -35,8 +41,9 @@ public class ProductPage extends AppCompatActivity {
     private Activity mActivity;
     private ArrayList<Product> productsList;
     private ProdAdapter prodAdapter = null;
-    ImageButton prev;
+    ImageButton prev,addToCart;
     private SearchView searchView;
+    FirebaseAuth firebaseAuth;
 
     Button all,frozen,cann,dairy,fresh,snacks,drinks;
     ArrayList<Product> filteredSection;
@@ -119,6 +126,56 @@ public class ProductPage extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvProduct);
         //progress_circular = findViewById(R.id.progress_circular);
+        addToCart=findViewById(R.id.addToCart);
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth.getUid();
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference =
+                        FirebaseDatabase.getInstance().getReference("my_cart").child("Products");
+                DatabaseReference df=FirebaseDatabase.getInstance().getReference("Products");
+                df.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String key=snapshot.getKey();
+                        Map<String,Object> map= new HashMap<>();
+
+                        map.put("key",key);
+                        databaseReference.push().setValue(map)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+
+                                        Toast.makeText(getApplicationContext(), "Product successfully added to the cart", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Could not added to the cart"+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
+
+
+
+            }
+        });
+
+
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false));
