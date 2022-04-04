@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/drawable-v24/custom_button1.xml" value="0.1" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/drawable-v24/ic_baseline_person_24.xml" value="0.1" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/drawable/button_categ.xml" value="0.1" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/drawable/popoup.xml" value="0.1" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_add_recipe_page.xml" value="0.1796875" />
+        <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_health-nutriton.xml" value="0.1796875" />
+        <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_healthNutrition.xml" value="0.1796875" />
+        <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_health_nutrition.xml" value="0.11367753623188406" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_healtheinfo.xml" value="0.1796875" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_main_manager.xml" value="0.1796875" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_mycart.xml" value="0.1796875" />
@@ -14,6 +18,7 @@
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_recipe_page.xml" value="0.1796875" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/activity_warn.xml" value="0.1796875" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/list_item_dropdown.xml" value="0.1796875" />
+        <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/popup.xml" value="0.1796875" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/product_cardview.xml" value="0.1796875" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/product_custom_item.xml" value="0.1796875" />
         <entry key="..\:/Users/a-m-l/OneDrive/المستندات/GitHub/KHIARAPP/app/src/main/res/layout/recipe_custom_item.xml" value="0.1796875" />

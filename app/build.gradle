@@ -58,6 +58,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 
+    implementation 'me.biubiubiu.justifytext:library:1.1'
 
 
 
