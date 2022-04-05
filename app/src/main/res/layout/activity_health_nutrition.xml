@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".HealthNutrition">
+
+    <ImageView
+        android:id="@+id/fav_btn"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="favourite list"
+        android:src="@drawable/favorite"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-80dp"
+        android:padding="0dp">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="top|center"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="40dp"
+            app:srcCompat="@drawable/mokhlil"
+            />
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="-400dp"
+        android:background="@drawable/custom_button1"
+
+
+        />
+    <Button
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="-15dp"
+        android:background="@drawable/custom_button1"
+
+        />
+    <Button
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="-35dp"
+        android:layout_marginTop="-15dp"
+        android:background="@drawable/custom_button1"
+
+        />
+
+    <TextView
+        android:id="@+id/tx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:text="Tomate Verde"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+    <me.biubiubiu.justifytext.library.JustifyTextView
+        android:id="@+id/tx1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|start"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="normal" />
+    <Button
+        android:onClick="ShowPopup"
+        android:id="@+id/Addcart"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:paddingTop="-1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="300dp"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/custom_button"
+        android:text="Add to  cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        />
+
+
+</LinearLayout>

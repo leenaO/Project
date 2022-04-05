@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -81,6 +82,7 @@ public class HomePage extends AppCompatActivity {
         rv1.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         rv2 = (RecyclerView) findViewById(R.id.rvhome2);
         rv2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
 
 
         //ArrayList<Product> products = new ArrayList<>();
