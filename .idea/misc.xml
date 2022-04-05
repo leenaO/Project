@@ -44,10 +44,14 @@
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/button_circle_product.xml" value="0.141" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/button_green.xml" value="0.1075" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_add_shopping_cart_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2065" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2065" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_baseline_favorite_red_24.xml" value="0.2065" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/manager_lay.xml" value="0.1075" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_add_recipe_page.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_add_recpie_ingredients.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_delete_product_page.xml" value="0.1716485507246377" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_favorite.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_forgetpassword.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_healtheinfo.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_home_page.xml" value="0.19506172839506172" />
@@ -56,13 +60,14 @@
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_khiar_add_page.xml" value="0.165" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_main.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_main_manager.xml" value="0.1296875" />
-        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_mycart.xml" value="0.1296875" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_mycart.xml" value="0.125" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_product_page.xml" value="0.11" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_recipe_page.xml" value="0.165" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_sign_in.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_sign_up.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/dialog_content.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/editprofile.xml" value="0.1296875" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/itme_incart.xml" value="0.335" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/list_item_dropdown.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/nutrionhealth.xml" value="0.1716485507246377" />

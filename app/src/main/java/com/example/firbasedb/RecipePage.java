@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -11,9 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,11 +38,41 @@ public class RecipePage extends AppCompatActivity {
     private ImageAdapter imageAdapter = null;
     ImageButton prev;
     private SearchView searchView;
+    BottomNavigationView bottomNavigationView;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_page);
+        bottomNavigationView=findViewById(R.id.nav_view_r);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        startActivity(new Intent(RecipePage.this,HomePage.class));
+                        break;
+                    case R.id.nav_fav:
+
+                        startActivity(new Intent(RecipePage.this,RecipePage.class));
+                        break;
+                    case R.id.nav_basket:
+                        startActivity(new Intent(RecipePage.this,mycart.class));
+                        break;
+                    case R.id.nav_add_recipe:
+                        startActivity(new Intent(RecipePage.this,AddRecipePage.class));
+                        break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(RecipePage.this,EditProfile.class));
+                        break;
+
+
+                }
+
+                return true;
+            }
+        });
 
         mActivity = RecipePage.this;
         mContext = getApplicationContext();

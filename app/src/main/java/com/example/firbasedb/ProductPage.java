@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +46,8 @@ public class ProductPage extends AppCompatActivity {
     ImageButton prev,addToCart;
     private SearchView searchView;
     FirebaseAuth firebaseAuth;
+    BottomNavigationView bottomNavigationView;
+
 
     Button all,frozen,cann,dairy,fresh,snacks,drinks;
     ArrayList<Product> filteredSection;
@@ -54,6 +58,34 @@ public class ProductPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
+        bottomNavigationView=findViewById(R.id.nav_view_p);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        startActivity(new Intent(ProductPage.this,HomePage.class));
+                        break;
+                    case R.id.nav_fav:
+
+                        startActivity(new Intent(ProductPage.this,Favorite.class));
+                        break;
+                    case R.id.nav_basket:
+                        startActivity(new Intent(ProductPage.this,mycart.class));
+                        break;
+                    case R.id.nav_add_recipe:
+                        startActivity(new Intent(ProductPage.this,AddRecipePage.class));
+                        break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(ProductPage.this,EditProfile.class));
+                        break;
+
+
+                }
+                return true;
+            }
+        });
 
         mActivity = ProductPage.this;
         mContext = getApplicationContext();
@@ -127,53 +159,9 @@ public class ProductPage extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvProduct);
         //progress_circular = findViewById(R.id.progress_circular);
         addToCart=findViewById(R.id.addToCart);
+
         firebaseAuth=FirebaseAuth.getInstance();
-        firebaseAuth.getUid();
-        addToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReference =
-                        FirebaseDatabase.getInstance().getReference("my_cart").child("Products");
-                DatabaseReference df=FirebaseDatabase.getInstance().getReference("Products");
-                df.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String key=snapshot.getKey();
-                        Map<String,Object> map= new HashMap<>();
-
-                        map.put("key",key);
-                        databaseReference.push().setValue(map)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-
-                                        Toast.makeText(getApplicationContext(), "Product successfully added to the cart", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Could not added to the cart"+e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-
-
-
-
-            }
-        });
 
 
 
@@ -181,6 +169,8 @@ public class ProductPage extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false));
         recyclerView.setNestedScrollingEnabled(false);
         productsList = new ArrayList<>();
+
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -231,6 +221,9 @@ public class ProductPage extends AppCompatActivity {
 
 
     }
+
+
+
     private void filterList(String newText) {
         ArrayList<Product> filteredList=new ArrayList<>();
         for(Product product: filteredSection){
@@ -272,6 +265,21 @@ public class ProductPage extends AppCompatActivity {
         }
 
     }
+//    public void addTo(View view) {
+//        DatabaseReference df=FirebaseDatabase.getInstance().getReference().child("Products");
+//        df.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//// String ss = snapshot.getKey();
+//                for (DataSnapshot s : snapshot.getChildren()) {
+//                    String key = s.getKey();
+//                    HashMap<String, Object> map = new HashMap<>();
+//                    map.put("key", key);
+//                    map.put("id", firebaseAuth.getUid());
+//                    FirebaseDatabase.getInstance().getReference().child("my_cart").push().setValue(map); } }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) { } }); }
+
 
 
 }

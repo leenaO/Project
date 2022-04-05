@@ -33,6 +33,7 @@ public class CartAdapter extends FirebaseRecyclerAdapter<Product, CartAdapter.my
               .placeholder(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark)
               .error(com.google.firebase.storage.R.drawable.common_google_signin_btn_icon_dark_normal)
               .into(holder.imageProdect);
+
    }
 
    @NonNull

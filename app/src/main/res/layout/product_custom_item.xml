@@ -87,11 +87,13 @@
                 android:layout_marginTop="5dp"
                 android:padding="10dp"
                 android:layout_marginStart="45dp"
+                android:onClick="addTo"
 
 
                 android:background="#00FFFFFF"
                 android:contentDescription="cart"
                 android:minWidth="48dp"
+
                 app:srcCompat="@drawable/ic_add_shopping_cart_black_24dp" />
         </LinearLayout>
 

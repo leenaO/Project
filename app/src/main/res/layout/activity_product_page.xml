@@ -36,7 +36,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view_rec_p"
+        android:id="@+id/nav_view_p"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginEnd="0dp"
@@ -220,7 +220,7 @@
             android:layout_height="0dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/nav_view_rec_p"
+            app:layout_constraintBottom_toTopOf="@+id/nav_view_p"
             app:layout_constraintTop_toBottomOf="@+id/hsp"
             app:layout_constraintStart_toStartOf="parent"
 

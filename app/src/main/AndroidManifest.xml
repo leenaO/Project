@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,32 +15,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FirbaseDB">
         <activity
+            android:name=".Favorite"
+            android:exported="false" />
+        <activity
             android:name=".forgetpassword"
             android:exported="false" />
         <activity
             android:name=".RecipePage"
-
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ProductPage"
-
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".KetoPage"
-
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".SugarFreePage"
-
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".VeganPage"
-
-            android:exported="false"/>
-
+            android:exported="false" />
+        <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
+            android:name=".mycart"
+            android:exported="false" />
         <activity
             android:name=".HomePage"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".SignUp"
+            android:exported="false" />
         <activity
             android:name=".SignIn"
             android:exported="true">
@@ -49,16 +55,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-<!--        <activity-->
-<!--            android:name=".HomePage"-->
-<!--            android:label="@string/app_name"></activity>-->
-        <activity
-            android:name=".EditProfile"
-            android:label="@string/app_name"></activity>
-        <activity
-            android:name=".SignUp"
-            android:label="@string/app_name"></activity>
+        </activity> <!-- <activity -->
+        <!-- android:name=".HomePage" -->
+        <!-- android:label="@string/app_name"></activity> -->
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

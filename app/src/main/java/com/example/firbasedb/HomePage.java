@@ -31,12 +31,14 @@ public class HomePage extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()){
                     case R.id.nav_home:
-                        startActivity(new Intent(HomePage.this,RecipePage.class));
+                        startActivity(new Intent(HomePage.this,HomePage.class));
                         break;
                     case R.id.nav_fav:
-                        startActivity(new Intent(HomePage.this,ProductPage.class));
+
+                        startActivity(new Intent(HomePage.this,Favorite.class));
                         break;
                     case R.id.nav_basket:
                         startActivity(new Intent(HomePage.this,mycart.class));
@@ -108,4 +110,5 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
+
 }
