@@ -44,7 +44,7 @@ public class SignIn extends AppCompatActivity {
         forgetPassButton = (Button)findViewById(R.id.forgetPassButton);
         firebaseAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("pleas wait...");
+        progressDialog.setTitle("please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override

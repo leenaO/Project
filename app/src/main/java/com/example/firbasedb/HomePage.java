@@ -127,7 +127,7 @@ public class HomePage extends AppCompatActivity {
         showRecipe.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                startActivity(new Intent(HomePage.this,MainActivity.class));
+                startActivity(new Intent(HomePage.this,RecipePage.class));
             }
         });
         rv2=findViewById(R.id.rvhome2);

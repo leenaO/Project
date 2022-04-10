@@ -79,16 +79,16 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
 
     }
-    private void isLike(String postid, final ImageButton imageView) {
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("RecLikes").child(postid);
+    private void isLike(String postid, final ImageButton imageView){
+        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("RecLikes").child(postid);
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(firebaseUser.getUid()).exists()) {
+                if(snapshot.child(firebaseUser.getUid()).exists()){
                     imageView.setImageResource(R.drawable.ic_baseline_favorite_red_24);
                     imageView.setTag("liked");
-                } else {
+                }else{
                     imageView.setImageResource(R.drawable.ic_action_name);
                     imageView.setTag("like");
 
