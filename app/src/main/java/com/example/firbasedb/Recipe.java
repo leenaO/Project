@@ -7,13 +7,28 @@ public class Recipe  {
     private String img;
     private String recipeName;
     private String recipeMaker;
-    private String howmake;
     private String dite;
-    private String ingrediant;
-    private String like;
-    private  String ID;
-    private  String time;
+    private String howmake;
+    private String recipeKey;
+    private String rcipeID;
+    private String id;
     private String deletID;
+
+    public String getHowmake() {
+        return howmake;
+    }
+
+    public void setHowmake(String howmake) {
+        this.howmake = howmake;
+    }
+
+    public String getID() {
+        return id;
+    }
+
+    public void setID(String id) {
+        this.id = id;
+    }
 
     public String getDeletID() {
         return deletID;
@@ -21,88 +36,6 @@ public class Recipe  {
 
     public void setDeletID(String deletID) {
         this.deletID = deletID;
-    }
-
-    public String getRcipeID() {
-        return rcipeID;
-    }
-
-    public void setRcipeID(String rcipeID) {
-        this.rcipeID = rcipeID;
-    }
-
-    private String rcipeID;
-
-
-    public String getLike() {
-        return like;
-    }
-
-    public void setLike(String like) {
-        this.like = like;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    private String recipeDiet;
-    private String recipeProcedure;
-
-    public Recipe()
-    {}
-    public Recipe(String img, String recipeName, String recipeMaker) {
-        this.img = img;
-        this.recipeName = recipeName;
-        this.recipeMaker=recipeMaker;
-    }
-
-    public Recipe(String img, String recipeName, String recipeMaker, String recipeDiet, String recipeProcedure) {
-        this.img = img;
-        this.recipeName = recipeName;
-        this.recipeMaker = recipeMaker;
-        this.recipeDiet = recipeDiet;
-        this.recipeProcedure = recipeProcedure;
-    }
-
-
-    public String getImg() {
-        return img;
-    }
-
-    public String getRecipeName() {
-        return recipeName;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
-    }
-
-    public String getRecipeMaker() {
-        return recipeMaker;
-    }
-
-    public void setRecipeMaker(String recipeMaker) {
-        this.recipeMaker = recipeMaker;
-    }
-    public String getHowmake() {
-        return howmake;
-    }
-
-    public void setHowmake(String howmake) {
-        this.howmake = howmake;
     }
 
     public String getDite() {
@@ -113,27 +46,53 @@ public class Recipe  {
         this.dite = dite;
     }
 
-    public String getIngrediant() {
-        return ingrediant;
+    public String getRcipeID() {
+        return rcipeID;
     }
-    public void setIngrediant(String ingrediant) {
-        this.ingrediant = ingrediant;
+
+    public void setRcipeID(String rcipeID) {
+        this.rcipeID = rcipeID;
+    }
+
+    public Recipe()
+    {}
+
+
+    public String getRecipeKey() {
+        return recipeKey;
+    }
+
+    public void setRecipeKey(String recipeKey) {
+        this.recipeKey = recipeKey;
     }
 
 
-    public void setRecipeDiet(String recipeDiet) {
-        this.recipeDiet = recipeDiet;
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public String getRecipeDiet() {
-        return recipeDiet;
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
     }
 
-    public String getRecipeProcedure() {
-        return recipeProcedure;
+    public void setRecipeMaker(String recipeMaker) {
+        this.recipeMaker = recipeMaker;
     }
 
-    public void setRecipeProcedure(String recipeProcedure) {
-        this.recipeProcedure = recipeProcedure;
+
+
+
+    public String getImg() {
+        return img;
     }
+
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public String getRecipeMaker() {
+        return recipeMaker;
+    }
+
 }

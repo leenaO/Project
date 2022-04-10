@@ -26,12 +26,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Favorite extends AppCompatActivity {
-    RecyclerView recyclerView;
-    DatabaseReference productsReference,likesReference;
+    RecyclerView recyclerView,recyclerViewR;
+    DatabaseReference productsReference,likesReference,likesReferenceR,recipeReference;
     private Context mContext;
     private Activity mActivity;
     FirebaseAuth firebaseAuth;
     private ArrayList<Product> productList,productFavoritList;
+    private ArrayList<Recipe> recipeList,recipeFavoritList;
+    private ImageAdapter imageAdapter=null;
 
     private ProdAdapter prodAdapter = null;
     BottomNavigationView bottomNavigationView;
@@ -72,6 +74,7 @@ public class Favorite extends AppCompatActivity {
         kk=findViewById(R.id.fp);
 
         recyclerView = findViewById(R.id.fav_pro_recycler);
+        recyclerViewR = findViewById(R.id.fav_rec_recycler);
         //progress_circular = findViewById(R.id.progress_circular);
 
 
@@ -85,6 +88,13 @@ public class Favorite extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(false);
         productList=new ArrayList<>();
         productFavoritList = new ArrayList<>();
+
+        recyclerViewR.setHasFixedSize(true);
+        recyclerViewR.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        recyclerViewR.setNestedScrollingEnabled(false);
+        recipeList=new ArrayList<>();
+        recipeFavoritList = new ArrayList<>();
+
 
         likesReference = FirebaseDatabase.getInstance().getReference().child("Likes");
         productsReference = FirebaseDatabase.getInstance().getReference().child("Products");
@@ -116,7 +126,7 @@ public class Favorite extends AppCompatActivity {
                                         for(Product p: productList) {
 
                                             if (dataSnapshot.getKey().equals(p.getProductId())) {
-                                               // kk.setText("true");
+                                                //kk.setText("true");
                                                 productFavoritList.add(p);
 
                                             }
@@ -127,6 +137,56 @@ public class Favorite extends AppCompatActivity {
                 prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) productFavoritList);
                 recyclerView.setAdapter(prodAdapter);
                 prodAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        //=========================
+        likesReferenceR = FirebaseDatabase.getInstance().getReference().child("RecLikes");
+        recipeReference = FirebaseDatabase.getInstance().getReference().child("recipe");
+
+        recipeReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipeList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Recipe imagemodel = dataSnapshot.getValue(Recipe.class);
+                    recipeList.add(imagemodel);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        likesReferenceR.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                recipeFavoritList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    boolean b=dataSnapshot.child(firebaseUser.getUid()).exists();
+                    if(b) {
+                        for(Recipe r: recipeList) {
+
+                            if (dataSnapshot.getKey().equals(r.getRcipeID())) {
+                                //kk.setText("true");
+                                recipeFavoritList.add(r);
+
+                            }
+                        }
+                    }
+
+                }
+                imageAdapter = new ImageAdapter(mContext,mActivity, (ArrayList<Recipe>) recipeFavoritList);
+                recyclerViewR.setAdapter(imageAdapter);
+                imageAdapter.notifyDataSetChanged();
 
             }
 

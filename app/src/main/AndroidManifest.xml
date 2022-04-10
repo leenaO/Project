@@ -33,6 +33,9 @@
             android:name=".SugarFreePage"
             android:exported="false" />
         <activity
+            android:name=".HealthNutrition"
+            android:exported="false" />
+        <activity
             android:name=".VeganPage"
             android:exported="false" />
         <activity
@@ -46,6 +49,9 @@
             android:exported="false" />
         <activity
             android:name=".SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".AddRecipePage"
             android:exported="false" />
         <activity
             android:name=".SignIn"

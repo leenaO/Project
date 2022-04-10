@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,6 +48,7 @@ public class ProductPage extends AppCompatActivity {
     private SearchView searchView;
     FirebaseAuth firebaseAuth;
     BottomNavigationView bottomNavigationView;
+    CardView productCard;
 
 
     Button all,frozen,cann,dairy,fresh,snacks,drinks;
@@ -90,6 +92,14 @@ public class ProductPage extends AppCompatActivity {
         mActivity = ProductPage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
+
+//        productCard=findViewById(R.id.productCard);
+//        productCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ProductPage.this,HealthNutrition.class));
+//            }
+//        });
 
         all=findViewById(R.id.allProduct);
         frozen=findViewById(R.id.frozen);
@@ -158,9 +168,56 @@ public class ProductPage extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvProduct);
         //progress_circular = findViewById(R.id.progress_circular);
-        addToCart=findViewById(R.id.addToCart);
+//        addToCart=findViewById(R.id.addToCart);
+//
+//        firebaseAuth=FirebaseAuth.getInstance();
+//        firebaseAuth.getUid();
+//        addToCart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                databaseReference =
+//                        FirebaseDatabase.getInstance().getReference("my_cart").child("Products");
+//                DatabaseReference df=FirebaseDatabase.getInstance().getReference("Products");
+//                df.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                        String key=snapshot.getKey();
+//                        Map<String,Object> map= new HashMap<>();
+//
+//                        map.put("key",key);
+//                        databaseReference.push().setValue(map)
+//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+//
+//                                        Toast.makeText(getApplicationContext(), "Product successfully added to the cart", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(getApplicationContext(), "Could not added to the cart"+e.getMessage(), Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        });
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
-        firebaseAuth=FirebaseAuth.getInstance();
+
+
+
+
+
+            //}
+        //});
+
 
 
 
@@ -169,6 +226,8 @@ public class ProductPage extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false));
         recyclerView.setNestedScrollingEnabled(false);
         productsList = new ArrayList<>();
+
+
 
 
 
@@ -251,11 +310,11 @@ public class ProductPage extends AppCompatActivity {
         if((sec.toLowerCase()).equals("all")){
             filteredSection=productsList;
         }else{
-        for(Product product: productsList){
-            if(product.getSection().toLowerCase().contains(sec.toLowerCase())){
-                filteredSection.add(product);
-            }
-        }}
+            for(Product product: productsList){
+                if(product.getSection().toLowerCase().contains(sec.toLowerCase())){
+                    filteredSection.add(product);
+                }
+            }}
         if(filteredSection.isEmpty()){
             prodAdapter.setFilteredList(filteredSection);
             Toast.makeText(ProductPage.this,"There is no products in "+sec+" section",Toast.LENGTH_LONG).show();
@@ -283,3 +342,7 @@ public class ProductPage extends AppCompatActivity {
 
 
 }
+
+
+
+

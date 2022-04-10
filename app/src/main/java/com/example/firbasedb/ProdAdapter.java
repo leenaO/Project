@@ -1,6 +1,7 @@
 package com.example.firbasedb;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,6 +101,44 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         });
     }
+
+    private void cart(String productId, final ImageButton imageView){
+        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("cart").child(productId);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child(firebaseUser.getUid()).exists()){
+
+                    imageView.setTag("in_cart");
+                }else{
+
+                    imageView.setTag("out_cart");
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+//    private void productAmountInCart(TextView likes,String productId){
+//        DatabaseReference reference=FirebaseDatabase.getInstance().getReference().child("cart")
+//                .child(productId);
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                likes.setText(snapshot.getChildren()+" likes");
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 //    private void nrLikes(TextView likes,String postid){
 //        DatabaseReference reference=FirebaseDatabase.getInstance().getReference().child("Likes")
 //                .child(postid);
@@ -133,6 +172,13 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         holder.pName.setText(model.getName());
         holder.pPrice.setText(model.getPrice());
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(mContext,HealthNutrition.class);
+                mContext.startActivity(i);
+            }
+        });
 //        holder.addToCart.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -154,6 +200,29 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 }
             }
         });
+
+//        cart(model.getProductId(),holder.addToCart);
+//
+//        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+//            int productsAmountInCart=0;
+//
+//            @Override
+//            public void onClick(View view) {
+//                productsAmountInCart=FirebaseDatabase.getInstance().getReference().child("cart").child(model.getProductId())
+//                        .child(firebaseUser.getUid());
+//                if(Integer.parseInt(model.getAmount())<=productsAmountInCart)
+//
+//                if(holder.addToCart.getTag().equals("in_cart")){
+//                    FirebaseDatabase.getInstance().getReference().child("cart").child(model.getProductId())
+//                            .child(firebaseUser.getUid()).setValue(productsAmountInCart+1);
+//                }
+////                else{
+////                    FirebaseDatabase.getInstance().getReference().child("cart").child(model.getProductId())
+////                            .child(firebaseUser.getUid()).removeValue();
+////
+////                }
+//            }
+//        });
 
     }
 
