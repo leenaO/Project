@@ -18,6 +18,9 @@
             android:name=".Favorite"
             android:exported="false" />
         <activity
+            android:name=".CartPage"
+            android:exported="false" />
+        <activity
             android:name=".forgetpassword"
             android:exported="false" />
         <activity
@@ -41,9 +44,7 @@
         <activity
             android:name=".EditProfile"
             android:exported="false" />
-        <activity
-            android:name=".mycart"
-            android:exported="false" />
+
         <activity
             android:name=".HomePage"
             android:exported="false" />

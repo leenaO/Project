@@ -87,7 +87,7 @@
                 android:layout_marginTop="5dp"
                 android:padding="10dp"
                 android:layout_marginStart="45dp"
-                android:onClick="addTo"
+
 
 
                 android:background="#00FFFFFF"

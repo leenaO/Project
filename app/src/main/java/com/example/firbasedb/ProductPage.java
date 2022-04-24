@@ -36,19 +36,18 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ProductPage extends AppCompatActivity {
-    private static final String TAG = "ProductPage";
+    final String TAG = "ProductPage";
     //CircularProgressIndicator progress_circular;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
     private Context mContext;
     private Activity mActivity;
     private ArrayList<Product> productsList;
-    private ProdAdapter prodAdapter = null;
+    private ProdAdapter prodAdapter;
     ImageButton prev,addToCart;
     private SearchView searchView;
     FirebaseAuth firebaseAuth;
     BottomNavigationView bottomNavigationView;
-    CardView productCard;
 
 
     Button all,frozen,cann,dairy,fresh,snacks,drinks;
@@ -74,7 +73,7 @@ public class ProductPage extends AppCompatActivity {
                         startActivity(new Intent(ProductPage.this,Favorite.class));
                         break;
                     case R.id.nav_basket:
-                        startActivity(new Intent(ProductPage.this,mycart.class));
+                        startActivity(new Intent(ProductPage.this,CartPage.class));
                         break;
                     case R.id.nav_add_recipe:
                         startActivity(new Intent(ProductPage.this,AddRecipePage.class));
@@ -92,14 +91,6 @@ public class ProductPage extends AppCompatActivity {
         mActivity = ProductPage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
-
-//        productCard=findViewById(R.id.productCard);
-//        productCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(ProductPage.this,HealthNutrition.class));
-//            }
-//        });
 
         all=findViewById(R.id.allProduct);
         frozen=findViewById(R.id.frozen);
@@ -215,10 +206,8 @@ public class ProductPage extends AppCompatActivity {
 
 
 
-            //}
+        //}
         //});
-
-
 
 
 
@@ -226,8 +215,6 @@ public class ProductPage extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(mActivity, 3, GridLayoutManager.VERTICAL, false));
         recyclerView.setNestedScrollingEnabled(false);
         productsList = new ArrayList<>();
-
-
 
 
 
@@ -342,6 +329,10 @@ public class ProductPage extends AppCompatActivity {
 
 
 }
+
+
+
+
 
 
 

@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomePage extends AppCompatActivity {
-    RecyclerView rv2,rv1;
+    RecyclerView rv1,rv2;
     Button showRecipe,showProduct;
     CardView kCard,lCard,vCard;
     BottomNavigationView bottomNavigationView;
@@ -38,7 +38,6 @@ public class HomePage extends AppCompatActivity {
     private Activity mActivity;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,21 +45,18 @@ public class HomePage extends AppCompatActivity {
         bottomNavigationView=findViewById(R.id.nav_view_h);
         mActivity = HomePage.this;
         mContext = getApplicationContext();
-        bottomNavigationView=findViewById(R.id.nav_view_h);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 switch (item.getItemId()){
                     case R.id.nav_home:
                         startActivity(new Intent(HomePage.this,HomePage.class));
                         break;
                     case R.id.nav_fav:
-
                         startActivity(new Intent(HomePage.this,Favorite.class));
                         break;
                     case R.id.nav_basket:
-                        startActivity(new Intent(HomePage.this,mycart.class));
+                        startActivity(new Intent(HomePage.this,CartPage.class));
                         break;
                     case R.id.nav_add_recipe:
                         startActivity(new Intent(HomePage.this,AddRecipePage.class));
@@ -74,7 +70,6 @@ public class HomePage extends AppCompatActivity {
                 return true;
             }
         });
-
         kCard=(CardView) findViewById(R.id.ketoCard);
         lCard=(CardView) findViewById(R.id.lowCard);
         vCard=(CardView) findViewById(R.id.veganCard);
@@ -97,24 +92,12 @@ public class HomePage extends AppCompatActivity {
                 startActivity(new Intent(HomePage.this,VeganPage.class));
             }
         });
-        rv1 = (RecyclerView) findViewById(R.id.rvhome1);
-        rv1.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        rv2 = (RecyclerView) findViewById(R.id.rvhome2);
-        rv2.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
+//        rv1 = (RecyclerView) findViewById(R.id.rvhome1);
+//        rv1.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+//        rv2 = (RecyclerView) findViewById(R.id.rvhome2);
+//        rv1.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
-
-        //ArrayList<Product> products = new ArrayList<>();
-        //products.add(new Product("", "Low-Fat Milk"));
-        //rv1.setAdapter(new Recycler(products));
-
-
-        /**recipes.add(new Recipe(R.drawable.chicken, "Chicken"));
-         recipes.add(new Recipe(R.drawable.breakfast, "Oat with Fruits"));
-         recipes.add(new Recipe(R.drawable.sandwitch, "Chicken Sandwich"));
-         recipes.add(new Recipe(R.drawable.rice, "Rice"));
-         recipes.add(new Recipe(R.drawable.pasta, "Pasta"));
-         rv2.setAdapter(new RecyclerViewAdapter(recipes));*/
         showProduct=findViewById(R.id.showProductsButton);
         showProduct.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -130,47 +113,22 @@ public class HomePage extends AppCompatActivity {
                 startActivity(new Intent(HomePage.this,RecipePage.class));
             }
         });
+        //latest products
         rv2=findViewById(R.id.rvhome2);
         rv2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        products = new ArrayList<Product>();
-        Query q2 =FirebaseDatabase.getInstance().getReference("Products").limitToLast(3);
+        products = new ArrayList<>();
+        Query q2 = FirebaseDatabase.getInstance().getReference("Products").limitToLast(3);
         q2.addValueEventListener(valueEventListener2);
-        latestProducts= new ProdAdapter(mContext,mActivity,products);
+        latestProducts= new ProdAdapter(this,mActivity,products);
         rv2.setAdapter(latestProducts);
 
-
-//        databaseReference = FirebaseDatabase.getInstance().getReference();
-//        Query lastQuery = databaseReference.orderByKey().limitToLast(1);
-//        lastQuery.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    for(DataSnapshot dataSnapshot: snapshot.child("recipe").getChildren() ){
-//                        Recipe r =dataSnapshot.getValue(Recipe.class);
-//                        recipes.add(r);
-//                    }productAdap.notifyDataSetChanged();
-//                }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                throw error.toException();
-//
-//            }
-//        });
-
-
-
-//        productAdap = new LatestAdapter(options);
-        //        FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>().setQuery(
-//                FirebaseDatabase.getInstance().getReference().child("recipe"),
-//                Recipe.class).build();
-
+        //latest recipes
         rv1=findViewById(R.id.rvhome1);
         rv1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
         recipes = new ArrayList<>();
         Query q =FirebaseDatabase.getInstance().getReference("recipe").limitToLast(3);
         q.addValueEventListener(valueEventListener);
-        latestRecipes= new ImageAdapter(this,recipes);
+        latestRecipes= new ImageAdapter(this,mActivity,recipes);
         rv1.setAdapter(latestRecipes);
 
 
@@ -202,7 +160,7 @@ public class HomePage extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Product product = dataSnapshot.getValue(Product.class);
                     products.add(product);
-                }latestRecipes.notifyDataSetChanged();
+                }latestProducts.notifyDataSetChanged();
             }
         }
 
@@ -211,6 +169,56 @@ public class HomePage extends AppCompatActivity {
 
         }
     };
+
+
+
+
+
+}
+
+
+
+
+//ArrayList<Product> products = new ArrayList<>();
+//products.add(new Product("", "Low-Fat Milk"));
+//rv1.setAdapter(new Recycler(products));
+
+
+/**recipes.add(new Recipe(R.drawable.chicken, "Chicken"));
+ recipes.add(new Recipe(R.drawable.breakfast, "Oat with Fruits"));
+ recipes.add(new Recipe(R.drawable.sandwitch, "Chicken Sandwich"));
+ recipes.add(new Recipe(R.drawable.rice, "Rice"));
+ recipes.add(new Recipe(R.drawable.pasta, "Pasta"));
+ rv2.setAdapter(new RecyclerViewAdapter(recipes));*/
+
+
+
+//        databaseReference = FirebaseDatabase.getInstance().getReference();
+//        Query lastQuery = databaseReference.orderByKey().limitToLast(1);
+//        lastQuery.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    for(DataSnapshot dataSnapshot: snapshot.child("recipe").getChildren() ){
+//                        Recipe r =dataSnapshot.getValue(Recipe.class);
+//                        recipes.add(r);
+//                    }productAdap.notifyDataSetChanged();
+//                }
+//
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                throw error.toException();
+//
+//            }
+//        });
+
+
+
+//        productAdap = new LatestAdapter(options);
+//        FirebaseRecyclerOptions<Recipe> options = new FirebaseRecyclerOptions.Builder<Recipe>().setQuery(
+//                FirebaseDatabase.getInstance().getReference().child("recipe"),
+//                Recipe.class).build();
+
 //    RecyclerView rv2,rv1;
 //    Button showRecipe,showProduct;
 //    CardView kCard,lCard,vCard;
@@ -305,4 +313,3 @@ public class HomePage extends AppCompatActivity {
 //        });
 //    }
 
-}

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,12 +42,14 @@ public class RecipePage extends AppCompatActivity {
     RecyclerView recyclerView;
 
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_page);
         mActivity = RecipePage.this;
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
+
         searchView=findViewById(R.id.searchBar);
         searchView.clearFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -77,6 +80,7 @@ public class RecipePage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 recipeList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
                     Recipe imagemodel = dataSnapshot.getValue(Recipe.class);
                     recipeList.add(imagemodel);
                 }

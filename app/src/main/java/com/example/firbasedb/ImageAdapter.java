@@ -25,12 +25,12 @@ import com.orhanobut.dialogplus.DialogPlus;
 import java.util.ArrayList;
 
 public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+
     private Context mContext;
     private Activity mActivity;
     private ArrayList<Recipe> mContentList;
     FirebaseUser firebaseUser;
-
-
 
     public void setFilteredList(ArrayList<Recipe> recipeList){
         this.mContentList=recipeList;
@@ -38,24 +38,19 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     }
 
-    public ImageAdapter(Context mContext, ArrayList<Recipe> mContentList) {
-
-        this.mContext = mContext;
-        this.mContentList = mContentList;
-
-    }
-
     public ImageAdapter(Context mContext, Activity mActivity, ArrayList<Recipe> mContentList) {
+
         this.mContext = mContext;
         this.mActivity = mActivity;
         this.mContentList = mContentList;
+
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_custom_item,parent,false);
-        return new ImageAdapter.ViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_custom_item, parent, false);
+        return new ViewHolder(view, viewType);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,7 +60,8 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private TextView rMaker;
         private ImageButton addToFav;
 
-        public ViewHolder(View itemView) {
+
+        public ViewHolder(View itemView, int viewType) {
             super(itemView);
 
             // Find all views ids
@@ -75,41 +71,47 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             rMaker = (TextView) itemView.findViewById(R.id.recipeMaker);
             addToFav=(ImageButton)itemView.findViewById(R.id.recipeFav);
 
-
         }
-
     }
-    private void isLike(String postid, final ImageButton imageView){
-        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("RecLikes").child(postid);
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.child(firebaseUser.getUid()).exists()){
-                    imageView.setImageResource(R.drawable.ic_baseline_favorite_red_24);
-                    imageView.setTag("liked");
-                }else{
-                    imageView.setImageResource(R.drawable.ic_action_name);
-                    imageView.setTag("like");
+
+        private void isLike(String postid, final ImageButton imageView){
+            final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+            DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("LikesR").child(postid);
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child(firebaseUser.getUid()).exists()){
+                        imageView.setImageResource(R.drawable.ic_baseline_favorite_red_24);
+                        imageView.setTag("liked");
+                    }else{
+                        imageView.setImageResource(R.drawable.ic_action_name);
+                        imageView.setTag("like");
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mainHolder, int position) {
         ViewHolder holder = (ViewHolder) mainHolder;
+        firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
+
+
         final Recipe model = mContentList.get(position);
         // setting data over views
         String imgUrl = model.getImg();
         if (imgUrl != null && !imgUrl.isEmpty()) {
-            Glide.with(mContext).load(imgUrl).into(holder.rImg);
+            Glide.with(mContext)
+                    .load(imgUrl)
+                    .into(holder.rImg);
         }
 
         holder.rName.setText(model.getRecipeName());
@@ -147,24 +149,21 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         });
 
 
-    isLike(model.getRcipeID(),holder.addToFav);
+
+        isLike(model.getRcipeID(), holder.addToFav);
         holder.addToFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(holder.addToFav.getTag().equals("like")){
-                    FirebaseDatabase.getInstance().getReference().child("RecLikes").child(model.getRcipeID())
+                if (holder.addToFav.getTag().equals("like")) {
+                    FirebaseDatabase.getInstance().getReference().child("LikesR").child(model.getRcipeID())
                             .child(firebaseUser.getUid()).setValue(true);
-                }else{
-                    FirebaseDatabase.getInstance().getReference().child("RecLikes").child(model.getRcipeID())
+                } else {
+                    FirebaseDatabase.getInstance().getReference().child("LikesR").child(model.getRcipeID())
                             .child(firebaseUser.getUid()).removeValue();
 
                 }
             }
         });
-
-
-
-
     }
 
     @Override
@@ -188,117 +187,6 @@ public class ImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         });
     }
-//    private Context mContext;
-//    private Activity mActivity;
-//    private ArrayList<Recipe> mContentList;
-//    FirebaseUser firebaseUser;
-//
-//    public void setFilteredList(ArrayList<Recipe> recipeList){
-//        this.mContentList=recipeList;
-//        notifyDataSetChanged();
-//
-//    }
-//
-//    public ImageAdapter(Context mContext, Activity mActivity, ArrayList<Recipe> mContentList) {
-//
-//        this.mContext = mContext;
-//        this.mActivity = mActivity;
-//        this.mContentList = mContentList;
-//
-//    }
-//
-//    @NonNull
-//    @Override
-//    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recipe_custom_item, parent, false);
-//        return new ViewHolder(view, viewType);
-//    }
-//
-//    public static class ViewHolder extends RecyclerView.ViewHolder {
-//        private CardView cardView;
-//        private ImageView rImg;
-//        private TextView rName;
-//        private TextView rMaker;
-//        private ImageButton addToFav;
-//
-//
-//        public ViewHolder(View itemView, int viewType) {
-//            super(itemView);
-//
-//            // Find all views ids
-//            cardView = (CardView) itemView.findViewById(R.id.recipeCard);
-//            rImg = (ImageView) itemView.findViewById(R.id.recipeImg);
-//            rName = (TextView) itemView.findViewById(R.id.recipeName);
-//            rMaker = (TextView) itemView.findViewById(R.id.recipeMaker);
-//            addToFav=(ImageButton)itemView.findViewById(R.id.recipeFav);
-//
-//        }
-//    }
-//        private void isLike(String postid, final ImageButton imageView){
-//            final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-//            DatabaseReference ref= FirebaseDatabase.getInstance().getReference().child("RecLikes").child(postid);
-//            ref.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    if(snapshot.child(firebaseUser.getUid()).exists()){
-//                        imageView.setImageResource(R.drawable.ic_baseline_favorite_red_24);
-//                        imageView.setTag("liked");
-//                    }else{
-//                        imageView.setImageResource(R.drawable.ic_action_name);
-//                        imageView.setTag("like");
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
-//
-//
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mainHolder, int position) {
-//        ViewHolder holder = (ViewHolder) mainHolder;
-//
-//
-//        final Recipe model = mContentList.get(position);
-//        // setting data over views
-//        String imgUrl = model.getImg();
-//        if (imgUrl != null && !imgUrl.isEmpty()) {
-//            Glide.with(mContext)
-//                    .load(imgUrl)
-//                    .into(holder.rImg);
-//        }
-//
-//        holder.rName.setText(model.getRecipeName());
-//        holder.rMaker.setText(model.getRecipeMaker());
-//        isLike(model.getRcipeID(),holder.addToFav);
-//        holder.addToFav.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(holder.addToFav.getTag().equals("like")){
-//                    FirebaseDatabase.getInstance().getReference().child("RecLikes").child(model.getRcipeID())
-//                            .child(firebaseUser.getUid()).setValue(true);
-//                }else{
-//                    FirebaseDatabase.getInstance().getReference().child("RecLikes").child(model.getRcipeID())
-//                            .child(firebaseUser.getUid()).removeValue();
-//
-//                }
-//            }
-//        });
-//
-//
-//
-//
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return mContentList.size();
-//    }
 
 
 }

@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="120dp"
         android:padding="1dp">
 
         <ImageView
@@ -27,10 +27,10 @@
             app:srcCompat="@drawable/milk" />
 
         <LinearLayout
-            android:id="@+id/linC"
+            android:id="@+id/linCart"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginLeft="10dp"
+
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/productImgCart"
 
@@ -39,12 +39,23 @@
 
             <TextView
                 android:id="@+id/productNameCart"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/recipeImg"
+                android:layout_marginLeft="10dp"
 
                 android:text="Chocolate Milk"
                 android:textColor="#000000" />
+
+<!--            <ImageButton-->
+<!--                android:id="@+id/deleteCart"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:background="#00FFFFFF"-->
+
+
+<!--                android:padding="10dp"-->
+<!--                app:srcCompat="@drawable/ic_baseline_delete_24" />-->
 
 
             <!--            <ImageButton-->
@@ -65,7 +76,7 @@
             android:id="@+id/priceCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linC"
+            android:layout_below="@+id/linCart"
             android:layout_marginStart="10dp"
             android:layout_toRightOf="@+id/productImgCart"
             android:gravity="center"
@@ -76,7 +87,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linC"
+            android:layout_below="@id/linCart"
 
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -87,7 +98,7 @@
                 android:id="@+id/minusCart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_below="@id/item_title"
+                android:layout_below="@id/productNameCart"
                 android:layout_alignParentEnd="true"
                 android:text="-"
                 android:textColor="@color/black" />
@@ -96,7 +107,7 @@
                 android:id="@+id/quantityCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_title"
+                android:layout_below="@id/productNameCart"
                 android:layout_alignStart="@+id/addprodect"
 
 
@@ -108,11 +119,20 @@
                 android:id="@+id/plusCart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_below="@id/item_title"
+                android:layout_below="@id/productNameCart"
                 android:layout_marginEnd="20dp"
                 android:layout_toStartOf="@+id/remove"
                 android:text="+"
                 android:textColor="@color/black" />
+            <ImageButton
+                android:id="@+id/deleteCart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="#00FFFFFF"
+
+
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_baseline_delete_24" />
 
         </LinearLayout>
 

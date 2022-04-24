@@ -28,6 +28,8 @@ android {
     }
 }
 apply plugin: 'com.google.gms.google-services'
+
+
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -38,6 +40,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation 'com.google.firebase:firebase-firestore:24.1.0'
     testImplementation 'junit:junit:4.13.2'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
@@ -69,6 +72,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.3'
 
     implementation 'me.biubiubiu.justifytext:library:1.1'
+
 
 
 

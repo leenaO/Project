@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -57,7 +58,7 @@ public class Favorite extends AppCompatActivity {
                         startActivity(new Intent(Favorite.this,Favorite.class));
                         break;
                     case R.id.nav_basket:
-                        startActivity(new Intent(Favorite.this,mycart.class));
+                        startActivity(new Intent(Favorite.this,CartPage.class));
                         break;
                     case R.id.nav_add_recipe:
                         startActivity(new Intent(Favorite.this,AddRecipePage.class));
@@ -71,6 +72,9 @@ public class Favorite extends AppCompatActivity {
                 return true;
             }
         });
+        mActivity = Favorite.this;
+        mContext = getApplicationContext();
+        FirebaseApp.initializeApp(this);
         kk=findViewById(R.id.fp);
 
         recyclerView = findViewById(R.id.fav_pro_recycler);
@@ -95,45 +99,45 @@ public class Favorite extends AppCompatActivity {
         recipeList=new ArrayList<>();
         recipeFavoritList = new ArrayList<>();
 
-
+//
         likesReference = FirebaseDatabase.getInstance().getReference().child("Likes");
         productsReference = FirebaseDatabase.getInstance().getReference().child("Products");
         final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         productsReference.addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                      public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        productList.clear();
-                       for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                productList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Product imagemodel = dataSnapshot.getValue(Product.class);
-                           productList.add(imagemodel);
-                      }
+                    productList.add(imagemodel);
+                }
 
 
-         }
+            }
 
-                @Override
+            @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-                     }
-              });
+            }
+        });
         likesReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 productFavoritList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    boolean b=dataSnapshot.child(firebaseUser.getUid()).exists();
-                                    if(b) {
-                                        for(Product p: productList) {
+                    boolean b=dataSnapshot.child(firebaseUser.getUid()).exists();
+                    if(b) {
+                        for(Product p: productList) {
 
-                                            if (dataSnapshot.getKey().equals(p.getProductId())) {
-                                                //kk.setText("true");
-                                                productFavoritList.add(p);
+                            if (dataSnapshot.getKey().equals(p.getProductId())) {
+                                //kk.setText("true");
+                                productFavoritList.add(p);
 
-                                            }
-                                        }
-                                    }
+                            }
+                        }
+                    }
 
-                                }
+                }
                 prodAdapter = new ProdAdapter(mContext,mActivity, (ArrayList<Product>) productFavoritList);
                 recyclerView.setAdapter(prodAdapter);
                 prodAdapter.notifyDataSetChanged();
@@ -145,9 +149,10 @@ public class Favorite extends AppCompatActivity {
 
             }
         });
-        //=========================
-        likesReferenceR = FirebaseDatabase.getInstance().getReference().child("RecLikes");
+//        //=========================
+        likesReferenceR = FirebaseDatabase.getInstance().getReference().child("LikesR");
         recipeReference = FirebaseDatabase.getInstance().getReference().child("recipe");
+
 
         recipeReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -195,6 +200,10 @@ public class Favorite extends AppCompatActivity {
 
             }
         });
+
+
+
+
 //        productsReference.addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {

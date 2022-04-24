@@ -6,11 +6,44 @@ public class Product {
     String section;
     String amount;
     String price;
-    String totalPrice;
+    //String totalPrice;
     boolean keto;
     boolean sugarFree;
     boolean vegan;
     String productId;
+    String productKey;
+    String ingredients;
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Product(String image, String name, String section, String amount, String price, boolean keto, boolean sugarFree, boolean vegan, String productId, String productKey,String ingredients) {
+        this.image = image;
+        this.name = name;
+        this.section = section;
+        this.amount = amount;
+        this.price = price;
+        //this.totalPrice = totalPrice;
+        this.keto = keto;
+        this.sugarFree = sugarFree;
+        this.vegan = vegan;
+        this.productId = productId;
+        this.productKey = productKey;
+        this.ingredients=ingredients;
+    }
+
+    public String getProductKey() {
+        return productKey;
+    }
+
+    public void setProductKey(String productKey) {
+        this.productKey = productKey;
+    }
 
     public String getProductId() {
         return productId;
@@ -44,13 +77,13 @@ public class Product {
         this.keto = keto;
     }
 
-    public Product(String image, String name, String section, String amount, String price, String totalPrice, boolean keto,boolean sugarFree,boolean vegan) {
+    public Product(String image, String name, String section, String amount, String price, boolean keto,boolean sugarFree,boolean vegan) {
         this.image = image;
         this.name = name;
         this.section = section;
         this.amount = amount;
         this.price = price;
-        this.totalPrice = totalPrice;
+
         this.keto = keto;
         this.sugarFree=sugarFree;
         this.vegan=vegan;
@@ -66,22 +99,22 @@ public class Product {
         this.name = name;
     }
 
-    public Product(String image, String name, String section, String amount, String price,String totalPrice) {
+    public Product(String image, String name, String section, String amount, String price) {
         this.image = image;
         this.name = name;
         this.section = section;
         this.amount = amount;
         this.price = price;
-        this.totalPrice=totalPrice;
+
     }
 
-    public String getTotalPrice() {
-        return totalPrice;
-    }
+//    public String getTotalPrice() {
+//        return totalPrice;
+//    }
 
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
-    }
+//    public void setTotalPrice(String totalPrice) {
+//        this.totalPrice = totalPrice;
+//    }
 
     public void setPrice(String price) {
         this.price = price;
@@ -122,4 +155,5 @@ public class Product {
     public String getName() {
         return name;
     }
+
 }

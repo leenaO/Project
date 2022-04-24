@@ -1,6 +1,7 @@
 package com.example.firbasedb;
 
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,24 +14,53 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Cart{
-    private String ProductId;
-    private String totalPrice;
+    private String img;
+    private String name;
+    private String price;
+
+
+
+    private String productId;
+    static double totalPrice;
     private String productAmountInCart;
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public String getProductId() {
-        return ProductId;
+        return productId;
     }
 
     public void setProductId(String productId) {
-        ProductId = productId;
+        this.productId = productId;
     }
 
-    public String getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
