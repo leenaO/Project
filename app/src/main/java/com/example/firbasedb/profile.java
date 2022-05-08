@@ -7,29 +7,30 @@ import java.util.Calendar;
 
 public class profile  {
 
-   private String name;
-   private String email;
-   private Integer phonNo;
-   private String pass;
-   private String avatar;
 
 private String age ;
 private String height;
-   private String wight;
-   private String activate;
+   private String weight;
    private String gender;
-   private String calure;
+   private String calorie;
+   private String allergy;
+   private String active;
 
-   public String getAllrgy() {
-      return allrgy;
+   public String getActive() {
+      return active;
    }
 
-   public void setAllrgy(String allrgy) {
-      this.allrgy = allrgy;
+   public void setActive(String active) {
+      this.active = active;
    }
 
-   private  String allrgy;
+   public String getAge() {
+      return age;
+   }
 
+   public void setAge(String age) {
+      this.age = age;
+   }
 
    public String getHeight() {
       return height;
@@ -39,20 +40,12 @@ private String height;
       this.height = height;
    }
 
-   public String getWight() {
-      return wight;
+   public String getWeight() {
+      return weight;
    }
 
-   public void setWight(String wight) {
-      this.wight = wight;
-   }
-
-   public String getActivate() {
-      return activate;
-   }
-
-   public void setActivate(String activate) {
-      this.activate = activate;
+   public void setWeight(String weight) {
+      this.weight = weight;
    }
 
    public String getGender() {
@@ -63,80 +56,20 @@ private String height;
       this.gender = gender;
    }
 
-   public String getCalure() {
-      return calure;
+   public String getCalorie() {
+      return calorie;
    }
 
-   public void setCalure(String calure) {
-      this.calure = calure;
+   public void setCalorie(String calorie) {
+      this.calorie = calorie;
    }
 
-
-
-   public String getAge() {
-      return age;
+   public String getAllergy() {
+      return allergy;
    }
 
-   public void setAge(String age) {
-      this.age = age;
+   public void setAllergy(String allergy) {
+      this.allergy = allergy;
    }
-
-
-   public String getPass() {
-      return pass;
-   }
-
-   public void setPass(String pass) {
-      this.pass = pass;
-   }
-
-   public profile() {
-   }
-
-
-
-   public String getName() {
-      return name;
-   }
-
-   public String getEmail() {
-      return email;
-   }
-
-   public Integer getPhonNo() {
-      return phonNo;
-   }
-
-   public String getAvatar() {
-      return avatar;
-   }
-
-
-
-   public void setName(String name) {
-      this.name = name;
-   }
-
-   public void setEmail(String email) {
-      this.email = email;
-   }
-
-   public void setPhonNo(Integer phonNo) {
-      this.phonNo = phonNo;
-   }
-
-   public void setAvatar(String avatar) {
-      this.avatar = avatar;
-   }
-
-   public profile(String name, String email, Integer phonNo,String pass) {
-      this.name = name;
-      this.email = email;
-      this.phonNo = phonNo;
-        this.pass = pass;
-   }
-
-
-
 }
 

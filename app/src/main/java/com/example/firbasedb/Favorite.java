@@ -45,26 +45,30 @@ public class Favorite extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
         bottomNavigationView=findViewById(R.id.nav_view_f);
+        bottomNavigationView.setSelectedItemId(R.id.nav_fav);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
                     case R.id.nav_home:
+
                         startActivity(new Intent(Favorite.this,HomePage.class));
                         break;
                     case R.id.nav_fav:
-
+                        item.getTitle();
                         startActivity(new Intent(Favorite.this,Favorite.class));
                         break;
                     case R.id.nav_basket:
+                        item.getTitle();
                         startActivity(new Intent(Favorite.this,CartPage.class));
                         break;
                     case R.id.nav_add_recipe:
                         startActivity(new Intent(Favorite.this,AddRecipePage.class));
                         break;
                     case R.id.nav_profile:
-                        startActivity(new Intent(Favorite.this,EditProfile.class));
+                        startActivity(new Intent(Favorite.this,Account.class));
                         break;
 
 
@@ -180,7 +184,7 @@ public class Favorite extends AppCompatActivity {
                     if(b) {
                         for(Recipe r: recipeList) {
 
-                            if (dataSnapshot.getKey().equals(r.getRcipeID())) {
+                            if (dataSnapshot.getKey().equals(r.getRecipeID())) {
                                 //kk.setText("true");
                                 recipeFavoritList.add(r);
 

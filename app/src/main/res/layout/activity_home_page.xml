@@ -15,12 +15,12 @@
         android:layout_height="wrap_content"
 
         android:paddingStart="10dp"
-        android:background="#fff"
         android:fontFamily="cursive"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingBottom="10dp"
         android:layout_marginBottom="10dp"
         android:text="KHIAR"
+        android:gravity="left|center"
         android:textColor="#718E37"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -52,102 +52,101 @@
 
 
 
-<LinearLayout
-    android:id="@+id/ltp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="2dp"
-    >
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Trending Products"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/khiarTitle"
-        app:layout_constraintTop_toBottomOf="@+id/khiarTitle" />
-            <Button
-                android:id="@+id/showProductsButton"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ltp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                >
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:text="Latest Products"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/khiarTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/khiarTitle" />
+                <Button
+                    android:id="@+id/showProductsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
 
-                android:background="#00FFFFFF"
-                android:text="Show All"
-                android:textColor="#718E37"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="50dp"
+                    android:background="#00FFFFFF"
+                    android:text="Show All"
+                    android:textColor="#718E37"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="170dp"
 
 
 
-                app:layout_constraintVertical_bias="0.416" />
+                    app:layout_constraintVertical_bias="0.416" />
 
-</LinearLayout>
+            </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvhome2"
                 android:layout_width="wrap_content"
-                android:layout_height="168dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ltp" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-
-        android:text="Trending Recipes"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/khiarTitle"
-        app:layout_constraintTop_toBottomOf="@+id/khiarTitle" />
-
-
-
-    <Button
-        android:id="@+id/showRecipeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-
-        android:background="#00FFFFFF"
-        android:text="Show All"
-        android:textColor="#718E37"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:text="Latest Recipes"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/khiarTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/khiarTitle" />
 
 
 
+                <Button
+                    android:id="@+id/showRecipeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvhome1"
-        android:layout_width="wrap_content"
-        android:layout_height="168dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" >
 
-    </androidx.recyclerview.widget.RecyclerView>
+                    android:background="#00FFFFFF"
+                    android:text="Show All"
+                    android:textColor="#718E37"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="180dp" />
+            </LinearLayout>
+
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvhome1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" >
+
+            </androidx.recyclerview.widget.RecyclerView>
             <TextView
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
@@ -162,169 +161,169 @@
                 app:layout_constraintTop_toBottomOf="@+id/rvhome2" />
 
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
 
-            android:layout_marginStart="5dp"
+                android:layout_marginStart="5dp"
 
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16">
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16">
 
-            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/ketoCard"
-                android:layout_width="130dp"
-                android:layout_height="165dp"
-                android:clickable="true"
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/ketoCard"
+                    android:layout_width="130dp"
+                    android:layout_height="165dp"
+                    android:clickable="true"
 
-                android:elevation="4dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
+                    android:elevation="4dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
 
-                app:cardUseCompatPadding="true">
+                    app:cardUseCompatPadding="true">
 
-                <RelativeLayout
-                    android:layout_width="125dp"
-                    android:layout_height="170dp"
-                    android:padding="1dp">
+                    <RelativeLayout
+                        android:layout_width="125dp"
+                        android:layout_height="170dp"
+                        android:padding="1dp">
 
-                    <ImageView
-                        android:id="@+id/dietImg"
-                        android:layout_width="130dp"
-                        android:layout_height="91dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="1dp"
-                        app:srcCompat="@drawable/keto" />
-
-
-                    <TextView
-                        android:id="@+id/dietName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/dietImg"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="0dp"
-                        android:text="Keto diet"
-                        android:textColor="#000000" />
+                        <ImageView
+                            android:id="@+id/dietImg"
+                            android:layout_width="130dp"
+                            android:layout_height="91dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="1dp"
+                            app:srcCompat="@drawable/keto" />
 
 
-                    <TextView
-                        android:id="@+id/dietD"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_below="@+id/dietName"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="1dp"
-                        android:text="You can see all Keto product here" />
-
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/lowCard"
-
-                android:layout_width="130dp"
-                android:layout_height="165dp"
-                android:clickable="true"
-
-                android:elevation="4dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-
-                app:cardUseCompatPadding="true">
-
-                <RelativeLayout
-                    android:layout_width="125dp"
-                    android:layout_height="170dp"
-                    android:padding="1dp">
-
-                    <ImageView
-                        android:id="@+id/lowImg"
-                        android:layout_width="130dp"
-                        android:layout_height="91dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="1dp"
-                        app:srcCompat="@drawable/low" />
+                        <TextView
+                            android:id="@+id/dietName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/dietImg"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginTop="0dp"
+                            android:text="Keto diet"
+                            android:textColor="#000000" />
 
 
-                    <TextView
-                        android:id="@+id/lowName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/lowImg"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="0dp"
-                        android:text="Low-Calorie diet"
-                        android:textColor="#000000" />
+                        <TextView
+                            android:id="@+id/dietD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_below="@+id/dietName"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginTop="1dp"
+                            android:text="You can see all Keto product here" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/lowCard"
+
+                    android:layout_width="130dp"
+                    android:layout_height="165dp"
+                    android:clickable="true"
+
+                    android:elevation="4dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="125dp"
+                        android:layout_height="170dp"
+                        android:padding="1dp">
+
+                        <ImageView
+                            android:id="@+id/lowImg"
+                            android:layout_width="130dp"
+                            android:layout_height="91dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="1dp"
+                            app:srcCompat="@drawable/low" />
 
 
-                    <TextView
-                        android:id="@+id/lowD"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_below="@+id/lowName"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="1dp"
-                        android:text="You can see all Low-Calorie product here" />
-
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/veganCard"
-
-                android:layout_width="130dp"
-                android:layout_height="165dp"
-                android:clickable="true"
-
-                android:elevation="4dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-
-                app:cardUseCompatPadding="true">
-
-                <RelativeLayout
-                    android:layout_width="125dp"
-                    android:layout_height="170dp"
-                    android:padding="1dp">
-
-                    <ImageView
-                        android:id="@+id/veganImg"
-                        android:layout_width="130dp"
-                        android:layout_height="91dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="1dp"
-                        app:srcCompat="@drawable/vegan" />
+                        <TextView
+                            android:id="@+id/lowName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/lowImg"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginTop="0dp"
+                            android:text="Low-Calorie diet"
+                            android:textColor="#000000" />
 
 
-                    <TextView
-                        android:id="@+id/veganName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/veganImg"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="0dp"
-                        android:text="Vegan diet"
-                        android:textColor="#000000" />
+                        <TextView
+                            android:id="@+id/lowD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_below="@+id/lowName"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginTop="1dp"
+                            android:text="You can see all Low-Calorie product here" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/veganCard"
+
+                    android:layout_width="130dp"
+                    android:layout_height="165dp"
+                    android:clickable="true"
+
+                    android:elevation="4dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="125dp"
+                        android:layout_height="170dp"
+                        android:padding="1dp">
+
+                        <ImageView
+                            android:id="@+id/veganImg"
+                            android:layout_width="130dp"
+                            android:layout_height="91dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="1dp"
+                            app:srcCompat="@drawable/vegan" />
 
 
-                    <TextView
-                        android:id="@+id/veganD"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_below="@+id/veganName"
-                        android:layout_marginLeft="1dp"
-                        android:layout_marginTop="1dp"
-                        android:text="You can see all Vegan product here" />
+                        <TextView
+                            android:id="@+id/veganName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/veganImg"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginTop="0dp"
+                            android:text="Vegan diet"
+                            android:textColor="#000000" />
 
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/veganD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_below="@+id/veganName"
+                            android:layout_marginLeft="1dp"
+                            android:layout_marginTop="1dp"
+                            android:text="You can see all Vegan product here" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

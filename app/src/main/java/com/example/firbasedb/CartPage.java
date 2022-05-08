@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +31,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 
 
 
@@ -43,13 +49,16 @@ public class CartPage extends AppCompatActivity {
     private Context mContext;
     private Activity mActivity;
     private ArrayList<Cart> cartList;
+    private ArrayList<Cart> complete=new ArrayList<>();
     private CartAd cartAd = null;
+    Button completeTheOrder;
     BottomNavigationView bottomNavigationView;
 //    ImageButton prev;
 //    private SearchView searchView;
     RecyclerView recyclerView;
     TextView totalPriceCart;
     double total=0;
+    int tAmount=0;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +68,9 @@ public class CartPage extends AppCompatActivity {
         mContext = getApplicationContext();
         FirebaseApp.initializeApp(this);
 
+
         bottomNavigationView=findViewById(R.id.nav_view_cart);
+        bottomNavigationView.setSelectedItemId(R.id.nav_basket);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -78,7 +89,7 @@ public class CartPage extends AppCompatActivity {
                         startActivity(new Intent(CartPage.this,AddRecipePage.class));
                         break;
                     case R.id.nav_profile:
-                        startActivity(new Intent(CartPage.this,EditProfile.class));
+                        startActivity(new Intent(CartPage.this,Account.class));
                         break;
 
 
@@ -132,6 +143,7 @@ public class CartPage extends AppCompatActivity {
                         }else{
                             total= total+(a*n);
                         }
+                        tAmount +=a;
 
 
                         Cart imagemodel = dataSnapshot.getValue(Cart.class);
@@ -155,6 +167,226 @@ public class CartPage extends AppCompatActivity {
 
             }
         });
+        completeTheOrder=findViewById(R.id.completeOrder);
+
+
+
+        completeTheOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(cartList!=null&& cartList.size()>0) {
+                    DatabaseReference allCartsRef = FirebaseDatabase.getInstance().getReference().child("cart");
+                    allCartsRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                if (!dataSnapshot.getKey().equals(firebaseUser.getUid())) {
+                                    Iterable<DataSnapshot> productsInCart = dataSnapshot.getChildren();
+                                    for (DataSnapshot p : productsInCart) {
+                                        for (Cart c : cartList) {
+                                            if (p.getKey().equals(c.getProductId())) {
+                                                String amount = (Integer.parseInt(c.getAmount()) - Integer.parseInt(c.getProductAmountInCart())) + "";
+                                                if (Integer.parseInt(amount) == 0) {
+                                                    allCartsRef.child(dataSnapshot.getKey()).child(p.getKey()).removeValue();
+
+                                                } else {
+                                                    HashMap<String, Object> map = new HashMap<>();
+                                                    if (Integer.parseInt(p.child("productAmountInCart").getValue().toString()) > Integer.parseInt(amount)) {
+                                                        map.put("productAmountInCart", amount);
+                                                    }
+                                                    map.put("amount", amount);
+                                                    allCartsRef.child(dataSnapshot.getKey()).child(p.getKey()).updateChildren(map);
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+
+
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
+                    DatabaseReference dbp=FirebaseDatabase.getInstance().getReference().child("Products");
+                            dbp.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                                        Product p=dataSnapshot.getValue(Product.class);
+                                        //ap.add(p);
+                                        for(Cart c: cartList) {
+                                            if (p.getProductId().equals(c.getProductId())){
+                                                Map<String, Object> map= new HashMap<>();
+                                                String amount = (Integer.parseInt(c.getAmount()) - Integer.parseInt(c.getProductAmountInCart())) + "";
+                                                map.put("amount",amount);
+                                                dbp.child(p.getProductKey()).updateChildren(map);
+
+
+
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                    allCartsRef.child(firebaseUser.getUid()).removeValue();
+                    startActivity(new Intent(CartPage.this,Complete.class));
+                }
+
+
+
+
+            }
+
+
+    });
+
+
+
+
+
+
+
+
+
+//
+//        @Override
+//        public void onClick(View view) {
+//            AlertDialog dialog=new AlertDialog.Builder(mActivity)
+//                    .setTitle("Complete The Order")
+//                    .setMessage("Are you sure you want to complete the order?"+"\nNote: payment when receiving")
+//                    .setCancelable(false)
+//                    .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            dialogInterface.dismiss();
+//                        }
+//                    }).setNegativeButton("Complete the order", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            ArrayList<Cart> com=new ArrayList<>();
+//
+//                            DatabaseReference db=FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid());
+//                            db.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+//                                        Cart cart=dataSnapshot.getValue(Cart.class);
+//                                        com.add(cart);
+//                                    }
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            });
+//                            // FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).removeValue();
+//
+//                            DatabaseReference dbRef=FirebaseDatabase.getInstance().getReference().child("cart");
+//                            dbRef.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    for(DataSnapshot dataSnapshot: snapshot.getChildren()) {
+//                                        //if (!(dataSnapshot.getKey().equals(firebaseUser.getUid()))){
+//                                        //Cart imagemodel = dataSnapshot.child(dataSnapshot.getKey()).getValue(Cart.class);
+//                                        Iterable<DataSnapshot> a = dataSnapshot.getChildren();
+//                                        for (DataSnapshot i : a) {
+//                                            Cart imagemodel = i.getValue(Cart.class);
+//                                            complete.add(imagemodel);
+//
+//                                        }
+//                                        for (Cart c : com) {
+//                                            for (Cart s : complete) {
+//
+//                                                if (s.getProductId().equals(c.getProductId())) {
+//                                                    String amount = (Integer.parseInt(c.getAmount()) - Integer.parseInt(c.getProductAmountInCart())) + "";
+//                                                    Map<String, Object> map2 = new HashMap<>();
+//                                                    //if(Integer.parseInt(amount)==0||dataSnapshot.getKey().equals(firebaseUser.getUid()))
+//                                                    if (Integer.parseInt(amount) == 0||dataSnapshot.getKey().equals(firebaseUser.getUid())) {
+//                                                        dbRef.child(dataSnapshot.getKey()).child(s.getProductId()).removeValue();
+//
+//                                                    } else {
+//                                                        if (Integer.parseInt(s.getProductAmountInCart()) > Integer.parseInt(amount)) {
+//                                                            map2.put("productAmountInCart", amount);
+//
+//
+//                                                        }
+//                                                        map2.put("amount", amount);
+//                                                        dbRef.child(dataSnapshot.getKey()).child(s.getProductId()).updateChildren(map2);
+//                                                    }
+//
+//
+//                                                }
+//                                            }
+//                                        }
+//                                        // }
+//
+//
+//                                    }
+//
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            });
+//                            //ArrayList<Product> ap=new ArrayList<>();
+//                            DatabaseReference dbp=FirebaseDatabase.getInstance().getReference().child("Products");
+//                            dbp.addValueEventListener(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+//                                        Product p=dataSnapshot.getValue(Product.class);
+//                                        //ap.add(p);
+//                                        for(Cart c: com) {
+//                                            if (p.getProductId().equals(c.getProductId())){
+//                                                Map<String, Object> map= new HashMap<>();
+//                                                String amount = (Integer.parseInt(c.getAmount()) - Integer.parseInt(c.getProductAmountInCart())) + "";
+//                                                map.put("amount",amount);
+//                                                dbp.child(p.getProductKey()).updateChildren(map);
+//
+//
+//
+//                                            }
+//                                        }
+//
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            });
+//                            //db.removeValue();
+//
+//
+//
+//
+//
+//
+//                        }
+//                    }).create();
+//            dialog.show();
+//        }
 
 
 //        prev = findViewById(R.id.previousButton);
@@ -167,9 +399,6 @@ public class CartPage extends AppCompatActivity {
 
 
     }
-
-
-
 
 
 

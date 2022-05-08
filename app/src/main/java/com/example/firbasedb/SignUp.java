@@ -150,7 +150,7 @@ progressDialog.setCanceledOnTouchOutside(false);
                     @Override
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
-                        startActivity(new Intent(SignUp.this,HomePage.class));
+                        startActivity(new Intent(SignUp.this,healthinfo.class));
                    finish();
                     }
                 })

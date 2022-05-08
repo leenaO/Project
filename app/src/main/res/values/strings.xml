@@ -2,6 +2,8 @@
     <string name="app_name">firbaseDB</string>
     <string name="cart_page" />
     <string name="what_s_your_weight">what your weight</string>
+    <item name="cart" type="id" ></item>
+    <item name="allergy" type="id"></item>
     <string name="select_item">Select item..</string>
     <string-array name="Section">
         <item>Section</item>
@@ -15,6 +17,9 @@
         <item>Keto</item>
         <item>Vegetarian</item>
         <item>Low calories</item>
+        <item>Low calories and Vegetarian</item>
+        <item>Keto and Vegetarian</item>
+        <item>Keto and Low calories</item>
         <item>All</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->

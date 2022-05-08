@@ -1,6 +1,8 @@
 package com.example.firbasedb;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +41,13 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ArrayList<Product> mContentList;
 
     FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
-    boolean containAllergy=false;
+    //boolean containAllergy=false;
     String allergy="null";
+    String containAllergy="";
+    boolean inCart=false;
+    String aCart="0";
+
+
 
 
 
@@ -119,6 +126,123 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         });
     }
+//    private void showAlertDialog(String message){
+//        AlertDialog dialog=new AlertDialog.Builder(mActivity)
+//                .setTitle("Be careful")
+//                .setMessage("this product contains an allergen\n Do you sure you want to add it to cart?")
+//                .setCancelable(false)
+//                .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        dialogInterface.dismiss();
+//                    }
+//                }).setNegativeButton("add to cart", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//
+//                    }
+//                }).create();
+//        dialog.show();
+//    }
+    private void isInCart(String id,ImageButton imageButton){
+        imageButton.setTag(R.id.cart,"out_cart");
+        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference dbref=FirebaseDatabase.getInstance().getReference().child("cart");
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child(firebaseUser.getUid()).exists()){
+
+                    if(snapshot.child(firebaseUser.getUid()).child(id).exists()) {
+                        //aCart=snapshot.child(firebaseUser.getUid()).child(id).child("productAmountInCart").getValue().toString();
+                        imageButton.setTag(R.id.cart,"in_cart");
+
+                    }else{
+                        //aCart="0";
+                        imageButton.setTag(R.id.cart,"out_cart");
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+    private void isContainAllegy(String ingred, final ImageButton imageView){
+        DatabaseReference dbref=FirebaseDatabase.getInstance().getReference().child("user").child("healthinfo");
+        dbref.addValueEventListener(new ValueEventListener() {
+            //imageView.setTag("noAllergy");
+
+
+
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if(snapshot.child(firebaseUser.getUid()).exists()) {
+                    imageView.setTag(R.id.allergy,"");
+                    containAllergy="";
+
+                    allergy = snapshot.child(firebaseUser.getUid()).child("allergy").getValue(String.class);
+                    ArrayList<String> al = new ArrayList<>(Arrays.asList(allergy.split(",")));
+                    ArrayList<String> ing = new ArrayList<>(Arrays.asList(ingred.split(",")));
+
+                    for (String ingredient : ing) {
+                        for (String a : al){
+                            if (!ingredient.equals("")) {
+                                if (a.toLowerCase().trim().contains(ingredient.toLowerCase().trim())) {
+                                    imageView.setTag(R.id.allergy,ingredient+" "+imageView.getTag(R.id.allergy).toString());
+                                    //containAllergy=containAllergy.concat(imageView.getTag(R.id.allergy).toString()+" ");
+
+                                    //containAllergy=containAllergy.concat(ingredient+" ");
+                                    //containAllergy=true;
+                                    //holder.addToCart.setTag("allergy");
+                                }
+                            }
+                    }
+                    }
+
+
+                }else{
+                    imageView.setTag(R.id.allergy,"");
+
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //containAllergy=true;
+
+            }
+        });
+
+//        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+//        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid());
+//        ref.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.child(productId).exists()){
+//
+//                    imageView.setTag("in_cart");
+//                }else{
+//
+//                    imageView.setTag("out_cart");
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+    }
 //    private void isInCart(String postid, final ImageButton imageView){
 //        final FirebaseUser firebaseUser2= FirebaseAuth.getInstance().getCurrentUser();
 //        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("user").child("healthinfo");
@@ -141,28 +265,7 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 //            }
 //        });
 //    }
-//    private void isInCart(String productId, final ImageButton imageView){
-//        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid());
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.child(productId).exists()){
-//
-//                    imageView.setTag("in_cart");
-//                }else{
-//
-//                    imageView.setTag("out_cart");
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+
 
 //    private void cart(String productId, final ImageButton imageView){
 //        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
@@ -194,6 +297,161 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mainHolder, int position) {
         ViewHolder holder = (ViewHolder) mainHolder;
         final Product model = mContentList.get(position);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.pImg.getContext())
+                        .setContentHolder(new com.orhanobut.dialogplus.ViewHolder(R.layout.product_details_dialog))
+                        .setExpanded(true, 1750).create();
+                View myView = dialogPlus.getHolderView();
+                TextView productName = myView.findViewById(R.id.ProductName);
+                TextView productPrice = myView.findViewById(R.id.productPrice);
+                ImageView purl = myView.findViewById(R.id.ProductImage);
+                TextView productIngredients = myView.findViewById(R.id.ProductIngredients);
+                TextView productDiet = myView.findViewById(R.id.ProductDiet);
+                ImageButton previousButton = myView.findViewById(R.id.ProductPreviousButton);
+                ImageButton favoriteButton = myView.findViewById(R.id.productFavD);
+                ImageButton addToCartDetail=myView.findViewById(R.id.addToCartDetail);
+                productName.setText(model.getName());
+                productPrice.setText(model.getPrice());
+                Glide.with(mContext).load(model.getImage()).into(purl);
+                productDetails(model.getProductKey(),productIngredients,productDiet);
+
+                isLike(model.getProductId(),favoriteButton);
+                favoriteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(favoriteButton.getTag().equals("like")){
+                            FirebaseDatabase.getInstance().getReference().child("Likes").child(model.getProductId())
+                                    .child(firebaseUser.getUid()).setValue(true);
+                        }else{
+                            FirebaseDatabase.getInstance().getReference().child("Likes").child(model.getProductId())
+                                    .child(firebaseUser.getUid()).removeValue();
+
+                        }
+
+                    }
+                });
+
+                isContainAllegy(model.getIngredients(),addToCartDetail);
+                isInCart(model.getProductId(),addToCartDetail);
+
+                addToCartDetail.setOnClickListener(new View.OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+
+                        if(Integer.parseInt(model.getAmount())!=0){
+
+                            if(!(addToCartDetail.getTag(R.id.allergy).toString().equals(""))){
+                                AlertDialog dialog=new AlertDialog.Builder(mActivity)
+                                        .setTitle("Be careful")
+                                        .setMessage("this product contains allergen/s: ("+addToCartDetail.getTag(R.id.allergy).toString()+")\n Are you sure you want to add it to cart?")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        }).setNegativeButton("add to cart", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                if(addToCartDetail.getTag(R.id.cart).toString().equals("out_cart")) {
+
+
+                                                    HashMap<String, Object> hash = new HashMap<>();
+
+                                                    hash.put("img", model.getImage());
+                                                    hash.put("name", model.getName());
+                                                    hash.put("price", model.getPrice());
+                                                    hash.put("productId", model.getProductId());
+                                                    hash.put("amount", model.getAmount());
+                                                    //hash.put("totalPrice",model.getPrice());
+                                                    hash.put("productAmountInCart", "1");
+
+                                                    //hash.put("productAmountInCart", Integer.toString(Integer.parseInt(aCart)+1));
+                                                    FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId()).setValue(hash)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void unused) {
+
+                                                                    Toast.makeText(mActivity, "Product successfully added to cart", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(mActivity, "Could not added" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                                        }
+                                                    });
+                                                }else{
+                                                    Toast.makeText(mActivity, "Product is already in the cart", Toast.LENGTH_SHORT).show();
+
+                                                }
+
+
+
+                                            }
+                                        }).create();
+                                dialog.show();
+
+                            }else {
+
+                                if (addToCartDetail.getTag(R.id.cart).toString().equals("out_cart")) {
+
+
+                                    HashMap<String, Object> hash = new HashMap<>();
+
+                                    hash.put("img", model.getImage());
+                                    hash.put("name", model.getName());
+                                    hash.put("price", model.getPrice());
+                                    hash.put("productId", model.getProductId());
+                                    hash.put("amount", model.getAmount());
+                                    //hash.put("totalPrice",model.getPrice());
+                                    hash.put("productAmountInCart", "1");
+                                    //hash.put("productAmountInCart", Integer.toString(Integer.parseInt(aCart)+1));
+                                    FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId()).setValue(hash)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+
+                                                    Toast.makeText(mActivity, "Product successfully added to cart", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(mActivity, "Could not added" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    });
+
+                                }else{
+                                    Toast.makeText(mActivity, "Product is already in the cart", Toast.LENGTH_SHORT).show();
+                                }
+                            }}else{
+                            Toast.makeText(mActivity, "This product is sold out", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
+
+                dialogPlus.show();
+                previousButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialogPlus.dismiss();
+                    }
+                });
+
+            }
+        });
+
+
+
+
 //        firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
 //        holder.cardView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -274,81 +532,154 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 }
             }
         });
-        //isInCart(model.getProductId(),holder.addToCart);
-        containAllergy=false;
+        isContainAllegy(model.getIngredients(),holder.addToCart);
+        isInCart(model.getProductId(),holder.addToCart);
+
+
+        //containAllergy=false;
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
             public void onClick(View view) {
-
-
-
-
-               DatabaseReference dbref=FirebaseDatabase.getInstance().getReference().child("user").child("healthinfo");
-                dbref.addValueEventListener(new ValueEventListener() {
-
-
-
-
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.child(firebaseUser.getUid()).exists()) {
-
-
-                            allergy = snapshot.child(firebaseUser.getUid()).child("allrgy").getValue(String.class);
-
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        //containAllergy=true;
-
-                    }
-                });
-                ArrayList<String> ing = new ArrayList<>(Arrays.asList(model.getIngredients().split(",")));
-                for (String ingredient : ing) {
-                    if (ingredient.toLowerCase().trim().contains(allergy.toLowerCase().trim())){
-                        containAllergy=true;
-                        //holder.addToCart.setTag("allergy");
-                    }
-                }
+                //inCart=false;
 
 
 
 
 
-                if(containAllergy){
-                    Toast.makeText(mActivity, "Contains allergy" , Toast.LENGTH_SHORT).show();
+
+//               DatabaseReference dbref=FirebaseDatabase.getInstance().getReference().child("user").child("healthinfo");
+//                dbref.addValueEventListener(new ValueEventListener() {
+//
+//
+//
+//
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        if(snapshot.child(firebaseUser.getUid()).exists()) {
+//
+//
+//                            allergy = snapshot.child(firebaseUser.getUid()).child("allrgy").getValue(String.class);
+//
+//                        }
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//                        //containAllergy=true;
+//
+//                    }
+//                });
+//                ArrayList<String> ing = new ArrayList<>(Arrays.asList(model.getIngredients().split(",")));
+//                for (String ingredient : ing) {
+//                    if (ingredient.toLowerCase().trim().contains(allergy.toLowerCase().trim())){
+//                        containAllergy=true;
+//                        //holder.addToCart.setTag("allergy");
+//                    }
+//                }
+
+
+
+
+        if(Integer.parseInt(model.getAmount())!=0){
+
+                if(!(holder.addToCart.getTag(R.id.allergy).toString().equals(""))){
+
+                    //showAlertDialog(holder.addToCart.getTag().toString());
+                    //Toast.makeText(mActivity, "Contains allergy" , Toast.LENGTH_SHORT).show();
+                    AlertDialog dialog=new AlertDialog.Builder(mActivity)
+                            .setTitle("Be careful")
+                            .setMessage("this product contains allergen/s: ("+holder.addToCart.getTag(R.id.allergy).toString()+")\n Are you sure you want to add it to cart?")
+                            .setCancelable(false)
+                            .setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).setNegativeButton("add to cart", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    if(holder.addToCart.getTag(R.id.cart).toString().equals("out_cart")) {
+
+
+                                        HashMap<String, Object> hash = new HashMap<>();
+
+                                        hash.put("img", model.getImage());
+                                        hash.put("name", model.getName());
+                                        hash.put("price", model.getPrice());
+                                        hash.put("productId", model.getProductId());
+                                        hash.put("amount", model.getAmount());
+                                        //hash.put("totalPrice",model.getPrice());
+                                        hash.put("productAmountInCart", "1");
+
+                                        //hash.put("productAmountInCart", Integer.toString(Integer.parseInt(aCart)+1));
+                                        FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId()).setValue(hash)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+
+                                                        Toast.makeText(mActivity, "Product successfully added to cart", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(mActivity, "Could not added" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
+                                    }else{
+                                        Toast.makeText(mActivity, "Product is already in the cart", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+
+
+                                }
+                            }).create();
+                    dialog.show();
 
                 }else {
 
-                    HashMap<String, Object> hash = new HashMap<>();
+                    if (holder.addToCart.getTag(R.id.cart).toString().equals("out_cart")) {
 
-                    hash.put("img", model.getImage());
-                    hash.put("name", model.getName());
-                    hash.put("price", model.getPrice());
-                    hash.put("productId", model.getProductId());
-                    //hash.put("totalPrice",model.getPrice());
-                    hash.put("productAmountInCart", "1");
-                    FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId()).setValue(hash)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
 
-                                    Toast.makeText(mActivity, "Product successfully added to cart", Toast.LENGTH_SHORT).show();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(mActivity, "Could not added" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        HashMap<String, Object> hash = new HashMap<>();
 
-                        }
-                    });
-                }
+                        hash.put("img", model.getImage());
+                        hash.put("name", model.getName());
+                        hash.put("price", model.getPrice());
+                        hash.put("productId", model.getProductId());
+                        hash.put("amount", model.getAmount());
+                        //hash.put("totalPrice",model.getPrice());
+                        hash.put("productAmountInCart", "1");
+                        //hash.put("productAmountInCart", Integer.toString(Integer.parseInt(aCart)+1));
+                        FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId()).setValue(hash)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+
+                                        Toast.makeText(mActivity, "Product successfully added to cart", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(mActivity, "Could not added" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+
+                    }else{
+                        Toast.makeText(mActivity, "Product is already in the cart", Toast.LENGTH_SHORT).show();
+                    }
+                }}else{
+            Toast.makeText(mActivity, "This product is sold out", Toast.LENGTH_SHORT).show();
+
+        }
+                //inCart=false;
+
 
 //                if(holder.addToCart.getTag().equals("in_cart")){
 //                    FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid())
@@ -358,7 +689,7 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 //                            .child(firebaseUser.getUid()).removeValue();
 //
 //                }
-                containAllergy=false;
+                //containAllergy=false;
             }
         });
 
@@ -485,3 +816,6 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 //            }
 //        });
 //    }
+
+
+

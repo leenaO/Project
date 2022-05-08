@@ -36,7 +36,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class ProductPage extends AppCompatActivity {
-    final String TAG = "ProductPage";
+    private static final String TAG = "ProductPage";
     //CircularProgressIndicator progress_circular;
     RecyclerView recyclerView;
     DatabaseReference databaseReference;
@@ -60,6 +60,7 @@ public class ProductPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_page);
         bottomNavigationView=findViewById(R.id.nav_view_p);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -69,7 +70,6 @@ public class ProductPage extends AppCompatActivity {
                         startActivity(new Intent(ProductPage.this,HomePage.class));
                         break;
                     case R.id.nav_fav:
-
                         startActivity(new Intent(ProductPage.this,Favorite.class));
                         break;
                     case R.id.nav_basket:
@@ -79,7 +79,7 @@ public class ProductPage extends AppCompatActivity {
                         startActivity(new Intent(ProductPage.this,AddRecipePage.class));
                         break;
                     case R.id.nav_profile:
-                        startActivity(new Intent(ProductPage.this,EditProfile.class));
+                        startActivity(new Intent(ProductPage.this,Account.class));
                         break;
 
 

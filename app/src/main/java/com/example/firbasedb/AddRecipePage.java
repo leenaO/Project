@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
@@ -36,6 +37,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -66,6 +68,9 @@ public class AddRecipePage extends AppCompatActivity {
     ProgressDialog progressDialog;
     ArrayAdapter<String> myAdpt;
     Recipe recipe_set;
+    BottomNavigationView bottomNavigationView;
+
+
 
 
     public void add_post(View view) {
@@ -82,6 +87,35 @@ public class AddRecipePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe_page);
+
+        bottomNavigationView=findViewById(R.id.nav_view_add_recipe);
+        bottomNavigationView.setSelectedItemId(R.id.nav_add_recipe);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_home:
+                        startActivity(new Intent(AddRecipePage.this,HomePage.class));
+                        break;
+                    case R.id.nav_fav:
+                        startActivity(new Intent(AddRecipePage.this,Favorite.class));
+                        break;
+                    case R.id.nav_basket:
+                        startActivity(new Intent(AddRecipePage.this,CartPage.class));
+                        break;
+                    case R.id.nav_add_recipe:
+                        startActivity(new Intent(AddRecipePage.this,AddRecipePage.class));
+                        break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(AddRecipePage.this,Account.class));
+                        break;
+
+
+                }
+                return true;
+            }
+        });
         Spinner mySpin = (Spinner) findViewById(R.id.spinnerD);
         myAdpt = new ArrayAdapter<String>(AddRecipePage.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Diet));
         myAdpt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -286,9 +320,9 @@ public class AddRecipePage extends AppCompatActivity {
                                     recipe_set.setRecipeMaker(namevalue);
                                     recipe_set.setDite(myAdpt.getItem(1));
                                     recipe_set.setImg(String.valueOf(uri));
-                                    recipe_set.setID(firebaseAuth.getUid());
-                                    recipe_set.setID(databaseReference.getKey());
-                                    recipe_set.setRcipeID(databaseReference.push().getKey());
+                                    recipe_set.setId(firebaseAuth.getUid());
+                                    recipe_set.setId(databaseReference.getKey());
+                                    recipe_set.setRecipeID(databaseReference.push().getKey());
                                    // recipedata.setValue(recipe_set);
                                     databaseReference.setValue(recipe_set).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

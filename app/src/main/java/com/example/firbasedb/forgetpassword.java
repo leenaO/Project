@@ -33,7 +33,7 @@ public class forgetpassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgetpassword);
-        getSupportActionBar().hide();
+
 
             Email = (EditText) findViewById(R.id.email);
 

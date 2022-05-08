@@ -28,6 +28,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +36,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.firbasedb.databinding.ActivityAccountBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,6 +54,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -61,17 +64,19 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class EditProfile extends AppCompatActivity  {
+public class EditProfile extends AppCompatActivity {
 
     ImageView imageView;
-    TextView button ;
-    EditText name , email , phonNo;
-    Button save , sting;
+    TextView button;
+    EditText name, email, phonNo;
+    Button save, sting;
     Uri uri;
     int request_code;
     StorageReference storageReference;
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
+    Button healthInfo;
+
     ActivityResultLauncher<Intent> someActivityResultLauncher1;
 
     @Override
@@ -79,17 +84,24 @@ public class EditProfile extends AppCompatActivity  {
 
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
+
         setContentView(R.layout.editprofile);
         name = (EditText) findViewById(R.id.EditText1);
         email = (EditText) findViewById(R.id.EditText2);
         phonNo = (EditText) findViewById(R.id.EditText3);
-        sting = (Button)findViewById(R.id.button4);
+        sting = (Button) findViewById(R.id.button4);
         imageView = (ImageView) findViewById(R.id.imageView3);
         button = (TextView) findViewById(R.id.textView11);
         save = (Button) findViewById(R.id.save);
+        healthInfo=(Button) findViewById(R.id.healthInfo);
         View view = this.getCurrentFocus();
         getSomeActivityResultLauncher();
+        healthInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditProfile.this,healthinfo.class));
+            }
+        });
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("please wait");
@@ -100,30 +112,49 @@ public class EditProfile extends AppCompatActivity  {
     private void checkuser() {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
-        if(user == null){
-            startActivity(new Intent(getApplicationContext(),SignIn.class));
+        if (user == null) {
+            startActivity(new Intent(getApplicationContext(), SignIn.class));
             finish();
-        }else {
-           lodinfo();
+        } else {
+            lodinfo();
         }
     }
 
     private void lodinfo() {
         progressDialog.setMessage("Lod info...");
         progressDialog.show();
+        FirebaseDatabase profile_uri = FirebaseDatabase.getInstance();
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
         reference.orderByChild("uid").equalTo(firebaseAuth.getUid())
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot ds:snapshot.getChildren()){
-                          String name_1 = ""+ds.child("name").getValue();
-                            String email_1 = ""+ds.child("email").getValue();
-                            String phone_1 = ""+ds.child("PhoneNo").getValue();
-                            name.setText(name_1);
-                            email.setText(email_1);
-                            phonNo.setText(phone_1);
-                            progressDialog.dismiss();
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            String name_1 = "" + ds.child("name").getValue();
+                            String email_1 = "" + ds.child("email").getValue();
+                            String phone_1 = "" + ds.child("PhoneNo").getValue();
+                            String image_1  ="" + ds.child("image_uri").getValue();
+
+                            if(image_1 != "") {
+                                Picasso.get()
+                                        .load(image_1)
+                                        .placeholder(R.drawable.person)
+                                        .error(R.drawable.person)
+                                        .into(imageView);
+                                name.setText(name_1);
+                                email.setText(email_1);
+                                phonNo.setText(phone_1);
+                                progressDialog.dismiss();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Updating profile", Toast.LENGTH_SHORT).show();
+                                name.setText(name_1);
+                                email.setText(email_1);
+                                phonNo.setText(phone_1);
+                                progressDialog.dismiss();
+
+
+                            }
                         }
                     }
 
@@ -143,41 +174,40 @@ public class EditProfile extends AppCompatActivity  {
     public ActivityResultLauncher<Intent> getSomeActivityResultLauncher() {
 
 
-
         someActivityResultLauncher1 = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     Intent data = result.getData();
-                    if (result.getResultCode() == AppCompatActivity.RESULT_OK && data !=null) {
-                      if(request_code==100) {
-                          uri = data.getData();
-                          imageView.setImageURI(uri);
-                          Toast.makeText(EditProfile.this, "uri gallery is "+uri.getPath(),Toast.LENGTH_LONG).show();
+                    if (result.getResultCode() == AppCompatActivity.RESULT_OK && data != null) {
+                        if (request_code == 100) {
+                            uri = data.getData();
+                            imageView.setImageURI(uri);
+                            Toast.makeText(EditProfile.this, "uri gallery is " + uri.getPath(), Toast.LENGTH_LONG).show();
 
-                      }else if(request_code==200) {
+                        } else if (request_code == 200) {
 //                          bitmap= (Bitmap)  data.getExtras().get("data");
 //                          imageView.setImageBitmap(bitmap);
-                          try {
-                              ContentResolver cr = getContentResolver();
-                              try {
-                                  // Creating a Bitmap with the image Captured
-                                  Bitmap bitmap = MediaStore.Images.Media.getBitmap(cr, uri);
-                                  // Setting the bitmap as the image of the
-                                  imageView.setImageBitmap(bitmap);
-                                  Toast.makeText(EditProfile.this, "uri is camera" + uri.getPath(), Toast.LENGTH_LONG).show();
+                            try {
+                                ContentResolver cr = getContentResolver();
+                                try {
+                                    // Creating a Bitmap with the image Captured
+                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(cr, uri);
+                                    // Setting the bitmap as the image of the
+                                    imageView.setImageBitmap(bitmap);
+                                    Toast.makeText(EditProfile.this, "uri is camera" + uri.getPath(), Toast.LENGTH_LONG).show();
 
-                              } catch (IOException e) {
-                                  e.printStackTrace();
-                              }
-                          } catch (IllegalArgumentException e) {
-                              if (e.getMessage() != null)
-                                  Log.e("Exception", e.getMessage());
-                              else
-                                  Log.e("Exception", "Exception");
-                              e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            } catch (IllegalArgumentException e) {
+                                if (e.getMessage() != null)
+                                    Log.e("Exception", e.getMessage());
+                                else
+                                    Log.e("Exception", "Exception");
+                                e.printStackTrace();
 
-                          }
-                      }
+                            }
+                        }
                     }
                 }
         );
@@ -200,13 +230,13 @@ public class EditProfile extends AppCompatActivity  {
 
                             if (!checkCameraPermission()) {
                                 requestCameraPermission();
-                                Toast.makeText(EditProfile.this, "successful Image",Toast.LENGTH_LONG).show();
+                                Toast.makeText(EditProfile.this, "successful Image", Toast.LENGTH_LONG).show();
                             }
                         } else if (which == 1) {
 
                             if (!checkStoragePermission()) {
                                 requestStoragePermission();
-                                Toast.makeText(EditProfile.this, "successful add Image",Toast.LENGTH_LONG).show();
+                                Toast.makeText(EditProfile.this, "successful add Image", Toast.LENGTH_LONG).show();
 
                             }
                         }
@@ -215,6 +245,7 @@ public class EditProfile extends AppCompatActivity  {
         );
         builder.create().show();
     }
+
     private Boolean checkStoragePermission() {
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result;
@@ -225,127 +256,132 @@ public class EditProfile extends AppCompatActivity  {
         boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
         return result && result1;
     }
+
     private void requestStoragePermission() {
-        request_code =100;
+        request_code = 100;
         Intent intent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         intent.setType("image/*");
         someActivityResultLauncher1.launch(intent);
 
     }
+
     private void requestCameraPermission() {
-        request_code=200;
+        request_code = 200;
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "new-photo-name.jpg");
         values.put(MediaStore.Images.Media.DESCRIPTION, "Image capture by camera");
         uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         someActivityResultLauncher1.launch(intent);
     }
 
-////////database firebase////////
-String nameupdate , emailupate , phoneupadte;
-   public void Save(View view) {
-nameupdate = name.getText().toString();
-emailupate = email.getText().toString();
-phoneupadte = phonNo.getText().toString();
-updateprofile();
+    ////////database firebase////////
+    String nameupdate, emailupate, phoneupadte;
+
+    public void Save(View view) {
+        nameupdate = name.getText().toString();
+        emailupate = email.getText().toString();
+        phoneupadte = phonNo.getText().toString();
+        updateprofile();
 
 
-   }
-
+    }
+    private String getfileextiontio(Uri u){
+        ContentResolver resolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(resolver.getType(u));
+    }
     private void updateprofile() {
         progressDialog.setMessage("Updating profile");
         progressDialog.show();
 
-        Toast.makeText(getApplicationContext(),"Updating profile",Toast.LENGTH_SHORT).show();
-       if(uri==null){
-           HashMap<String,Object> hashMap = new HashMap<>();
-           hashMap.put("name",nameupdate);
-           hashMap.put("email",emailupate);
-           hashMap.put("PhoneNo",phoneupadte);
-           DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
-           reference.child(firebaseAuth.getUid()).updateChildren(hashMap)
-                   .addOnSuccessListener(new OnSuccessListener<Void>() {
-                       @Override
-                       public void onSuccess(Void unused) {
-                           Toast.makeText(getApplicationContext(),"profile update...",Toast.LENGTH_SHORT).show();
-                           progressDialog.dismiss();
+        Toast.makeText(getApplicationContext(), "Updating profile", Toast.LENGTH_SHORT).show();
+        if (uri == null) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("name", nameupdate);
+            hashMap.put("email", emailupate);
+            hashMap.put("PhoneNo", phoneupadte);
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
+            reference.child(firebaseAuth.getUid()).updateChildren(hashMap)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(getApplicationContext(), "profile update...", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
 
-                       }
-                   }).addOnFailureListener(new OnFailureListener() {
-               @Override
-               public void onFailure(@NonNull Exception e) {
-                   Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
-               }
-           });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
 
-       }else {
-           String file_pathname ="profile_image/"+""+firebaseAuth.getUid();
-           DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
-           storageReference = FirebaseStorage.getInstance().getReference(file_pathname);
-           imageView.setDrawingCacheEnabled(true);
-           imageView.buildDrawingCache();
-           Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-           ByteArrayOutputStream baos = new ByteArrayOutputStream();
-           bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-           byte[] data = baos.toByteArray();
+        } else {
+            String file_pathname = "profile_image/" + "" + firebaseAuth.getUid();
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
+            storageReference = FirebaseStorage.getInstance().getReference(file_pathname);
+            imageView.setDrawingCacheEnabled(true);
+            imageView.buildDrawingCache();
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
 
-           UploadTask uploadTask = storageReference.putBytes(data);
-           storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-               @Override
-               public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                   uploadTask.addOnFailureListener(new OnFailureListener() {
-                       @Override
-                       public void onFailure(@NonNull Exception exception) {
-                           Toast.makeText(getApplicationContext(),"failed to upload image"+exception.getMessage(),Toast.LENGTH_LONG).show();
-                       }
-                   }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                       @Override
-                       public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                           Snackbar.make(findViewById(android.R.id.content),"image upload success",Snackbar.LENGTH_LONG).show();
-                       }
-                   });
-                   while (!uploadTask.isSuccessful()) {
-                       if (uploadTask.isSuccessful()) {
-                           HashMap<String, Object> hashMap = new HashMap<>();
-                           hashMap.put("image_uri", file_pathname);
-                           hashMap.put("name", nameupdate);
-                           hashMap.put("email", emailupate);
-                           hashMap.put("PhoneNo", phoneupadte);
-                           reference.child(firebaseAuth.getUid()).updateChildren(hashMap)
-                                   .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                       @Override
-                                       public void onSuccess(Void unused) {
-                                           Snackbar.make(findViewById(android.R.id.content),"upload profile",Snackbar.LENGTH_LONG).show();
 
-                                           progressDialog.dismiss();
+            UploadTask uploadTask = storageReference.putBytes(data);
+            StorageReference storageReference1 = storageReference.child(System.currentTimeMillis() + "." + getfileextiontio(uri));
 
-                                       }
-                                   }).addOnFailureListener(new OnFailureListener() {
-                               @Override
-                               public void onFailure(@NonNull Exception e) {
-                                   Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
-                               }
-                           });
+            storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    storageReference1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            if (uploadTask.isSuccessful()) {
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put("image_uri",String.valueOf(uri));
+                                hashMap.put("name", nameupdate);
+                                hashMap.put("email", emailupate);
+                                hashMap.put("PhoneNo", phoneupadte);
+                                reference.child(firebaseAuth.getUid()).updateChildren(hashMap)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Snackbar.make(findViewById(android.R.id.content), "upload profile", Snackbar.LENGTH_LONG).show();
 
-                       }
-                   }
+                                                progressDialog.dismiss();
 
-               }
-           })
-                   .addOnFailureListener(new OnFailureListener() {
-                       @Override
-                       public void onFailure(@NonNull Exception e) {
-                           Toast.makeText(getApplicationContext(),""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
-                       }
-                   });
-       }
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                }
+            });
+        }
+        startActivity(new Intent(EditProfile.this,Account.class));
     }
-
-    public void logout(View view) {
+    public void logout (View view){
         if (view.getId() == R.id.logout) {
             firebaseAuth.getInstance().signOut();
             startActivity(new Intent(EditProfile.this, SignIn.class));
@@ -353,6 +389,7 @@ updateprofile();
         }
     }
 }
+
 
 
 

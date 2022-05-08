@@ -75,12 +75,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.706" />
 
+
+    <Button
+        android:id="@+id/healthInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/button_custom"
+        android:ems="15"
+        android:paddingLeft="20dp"
+        android:text="Your Health Information"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="19dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.803" />
+
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/button_custom"
         android:ems="15"
+        android:onClick="logout"
         android:paddingLeft="20dp"
         android:text="Logout"
         android:textColor="@color/white"
@@ -90,9 +109,7 @@
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.787"
-        android:onClick="logout"/>
-
+        app:layout_constraintVertical_bias="0.89" />
 
     <EditText
         android:id="@+id/EditText3"

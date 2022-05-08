@@ -21,10 +21,22 @@
             android:name=".CartPage"
             android:exported="false" />
         <activity
+            android:name=".healthinfo"
+            android:exported="false" />
+        <activity
             android:name=".forgetpassword"
             android:exported="false" />
         <activity
             android:name=".RecipePage"
+            android:exported="false" />
+        <activity
+            android:name=".IngrdintsPage"
+            android:exported="false" />
+        <activity
+            android:name=".Complete"
+            android:exported="false" />
+        <activity
+            android:name=".Account"
             android:exported="false" />
         <activity
             android:name=".ProductPage"
@@ -56,6 +68,9 @@
             android:exported="false" />
         <activity
             android:name=".SignIn"
+            android:exported="false" />
+        <activity
+            android:name=".Logo"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

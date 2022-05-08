@@ -7,15 +7,20 @@
     tools:context=".CartPage">
     <TextView
         android:id="@+id/cartPage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="15dp"
+
+        android:paddingStart="10dp"
+        android:background="#fff"
         android:fontFamily="cursive"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="10dp"
         android:text="My Cart"
         android:textColor="#718E37"
         android:textSize="30sp"
         android:textStyle="bold"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -31,66 +36,74 @@
         app:menu="@menu/bottom_nav_menu" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cartRecycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
 
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cartPage" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cartRecycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/linp"
+            app:layout_constraintTop_toBottomOf="@+id/cartPage"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:orientation="vertical" />
+
 
     <LinearLayout
-        android:id="@+id/linp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/cartRecycler"
-        android:background="#B3B1B1"
-        app:layout_constraintTop_toBottomOf="@+id/cartRecycler"
-    app:layout_constraintStart_toStartOf="@+id/cartPage"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal">
-    <TextView
-        android:id="@+id/totalPriceTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+            android:id="@+id/linp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/cartRecycler"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10dp"
+            android:background="#C6C5C5"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/completeOrder"
+            app:layout_constraintStart_toStartOf="@+id/cartPage">
 
-        android:text="Total Price:"
-        android:textStyle="bold"
-        android:textSize="16sp"
+            <TextView
+                android:id="@+id/totalPriceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
 
-         />
-    <TextView
-        android:id="@+id/totalPriceCart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="70dp"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:text="0"/>
-    </LinearLayout>
+                android:text="Total Price:"
+                android:textSize="16sp"
+                android:textStyle="bold"
 
-    <Button
-        android:id="@+id/completeOrder"
-        android:layout_width="300dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/button_custom"
-        android:backgroundTint="#D2DCBE"
-        android:drawablePadding="10dp"
-        android:text="Complete the order"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linp" />
+                />
+
+            <TextView
+                android:id="@+id/totalPriceCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="10dp"
+                android:text="0"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/completeOrder"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/button_custom"
+            android:backgroundTint="#D2DCBE"
+            android:drawablePadding="10dp"
+            android:text="Complete the order"
+            app:layout_constraintBottom_toTopOf="@+id/nav_view_cart"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
 
 
 

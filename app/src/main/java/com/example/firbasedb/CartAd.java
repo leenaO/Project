@@ -1,6 +1,8 @@
 package com.example.firbasedb;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import com.orhanobut.dialogplus.DialogPlus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CartAd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
@@ -66,6 +69,7 @@ public class CartAd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private Button plus;
         private Button minus;
         private ImageButton deleteCart;
+        private Button completeOrder;
        // private TextView totalPriceCart;
 
 
@@ -82,6 +86,7 @@ public class CartAd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
            // totalPriceCart=(TextView) itemView.findViewById(R.id.totalPriceCart);
             plus=itemView.findViewById(R.id.plusCart);
             minus=itemView.findViewById(R.id.minusCart);
+            completeOrder=itemView.findViewById(R.id.completeOrder);
 
         }
     }
@@ -127,9 +132,11 @@ public class CartAd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             public void onClick(View view) {
                 if(FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).getKey().equals(firebaseUser.getUid())) {
                     String y=model.getPrice();
+
                     double nn=Double.parseDouble(model.getProductAmountInCart());
                         model.setProductAmountInCart(0 + "");
                         Cart.totalPrice=Cart.totalPrice-(Double.parseDouble(y)*nn);
+
 
                         FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId())
                                 .removeValue();
@@ -147,23 +154,22 @@ public class CartAd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             public void onClick(View view) {
 
                 if(FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).getKey().equals(firebaseUser.getUid())) {
-                    model.setProductAmountInCart((Integer.parseInt(model.getProductAmountInCart()) + 1)+"");
-                    Cart.totalPrice=Cart.totalPrice+Double.parseDouble(model.getPrice());
+                    if(Integer.parseInt(model.getAmount())>Integer.parseInt(model.getProductAmountInCart())) {
+
+                        model.setProductAmountInCart((Integer.parseInt(model.getProductAmountInCart()) + 1) + "");
+                        Cart.totalPrice = Cart.totalPrice + Double.parseDouble(model.getPrice());
 
 
-                    FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId())
-                            .child("productAmountInCart").setValue(model.getProductAmountInCart());
-                    holder.cAmount.setText((model.getProductAmountInCart()));
+
+                        FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId())
+                                .child("productAmountInCart").setValue(model.getProductAmountInCart());
+                        holder.cAmount.setText((model.getProductAmountInCart()));
+                    }else{
+                        Toast.makeText(mActivity, "You can't add more from this product", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
-//                if(holder.addToCart.getTag().equals("in_cart")){
-//                    FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid())
-//                            .child(firebaseUser.getUid()).setValue(true);
-//                }else{
-//                    FirebaseDatabase.getInstance().getReference().child("Likes").child(model.getProductId())
-//                            .child(firebaseUser.getUid()).removeValue();
-//
-//                }
+
             }
         });
         holder.minus.setOnClickListener(new View.OnClickListener() {
@@ -174,23 +180,26 @@ public class CartAd extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         model.setProductAmountInCart((Integer.parseInt(model.getProductAmountInCart()) - 1) + "");
                         Cart.totalPrice=Cart.totalPrice-Double.parseDouble(model.getPrice());
 
+
                         FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid()).child(model.getProductId())
                                 .child("productAmountInCart").setValue(model.getProductAmountInCart());
                         holder.cAmount.setText((model.getProductAmountInCart()));
+
                     }
                 }
 
-//                if(holder.addToCart.getTag().equals("in_cart")){
-//                    FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid())
-//                            .child(firebaseUser.getUid()).setValue(true);
-//                }else{
-//                    FirebaseDatabase.getInstance().getReference().child("Likes").child(model.getProductId())
-//                            .child(firebaseUser.getUid()).removeValue();
-//
-//                }
+
             }
         });
         holder.cAmount.setText((model.getProductAmountInCart()));
+
+//        holder.completeOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                holder.completeOrder.setText("hi");
+//
+//            }
+//        });
 
 
 

@@ -6,13 +6,12 @@ public class Product {
     String section;
     String amount;
     String price;
-    //String totalPrice;
-    boolean keto;
-    boolean sugarFree;
-    boolean vegan;
+    String ingredients;
+    boolean keto=true;
+    boolean sugarFree=true;
+    boolean vegan=true;
     String productId;
     String productKey;
-    String ingredients;
 
     public String getIngredients() {
         return ingredients;

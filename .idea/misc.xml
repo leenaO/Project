@@ -26,6 +26,7 @@
         <entry key="..\:/Users/jawaher/firbaseDB/app/src/main/res/xml/provider_path.xml" value="0.1" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable-v24/button_circle.xml" value="0.141" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable-v24/button_custom.xml" value="0.141" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable-v24/button_custom2.xml" value="0.165" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable-v24/custom_button.xml" value="0.141" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable-v24/custom_input.xml" value="0.141" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable-v24/ic_action_name.xml" value="0.122" />
@@ -45,46 +46,55 @@
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/button_green.xml" value="0.1075" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/delete.xml" value="0.2065" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_add_shopping_cart_black_24dp.xml" value="0.1" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.165" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2065" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2065" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/ic_baseline_favorite_red_24.xml" value="0.2065" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/drawable/manager_lay.xml" value="0.1075" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/account_custom_item.xml" value="0.1716485507246377" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_account.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_add_recipe_page.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_add_recpie_ingredients.xml" value="0.1716485507246377" />
-        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_cart.xml" value="0.2796875" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_cart.xml" value="0.11" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_delete_product_page.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_favorite.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_forgetpassword.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_health_nutrition.xml" value="0.1" />
-        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_healtheinfo.xml" value="0.1716485507246377" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_healtheinfo.xml" value="0.11" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_home_page.xml" value="0.19506172839506172" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_ingredients_product_img.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_keto_page.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_khiar_add_page.xml" value="0.165" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_logo.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_main.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_main_manager.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_mycart.xml" value="0.25" />
-        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_product_page.xml" value="0.11" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_product_page.xml" value="0.165" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_recipe_page.xml" value="0.165" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_sign_in.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_sign_up.xml" value="0.1296875" />
-        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_warn.xml" value="0.2796875" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/activity_warn.xml" value="0.25" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/complete_order.xml" value="0.125" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/dialog_content.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/editprofile.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/fragment_favorite.xml" value="0.1" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/fragment_home.xml" value="0.2796875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/fragment_profile.xml" value="0.2796875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/incart_item.xml" value="0.2796875" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/item_of_ing.xml" value="0.1716485507246377" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/item_view_account_dilog.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/itme_incart.xml" value="0.335" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/list_item_dropdown.xml" value="0.1296875" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/nutrionhealth.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/popup.xml" value="0.1" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/product_cardview.xml" value="0.335" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/product_custom_item.xml" value="0.25" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/product_details_dialog.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/recipe_custom_item.xml" value="0.335" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/recipe_details_dialog.xml" value="0.1716485507246377" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/view_account_dialog.xml" value="0.1716485507246377" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/layout/warn.xml" value="0.1716485507246377" />
-        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1296875" />
+        <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/menu/bottom_nav_menu.xml" value="0.335" />
         <entry key="..\:/Users/leele/AndroidStudioProjects/KHIARAPP/app/src/main/res/menu/serch_product.xml" value="0.115625" />
       </map>
     </option>

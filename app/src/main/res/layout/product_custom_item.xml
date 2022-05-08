@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/productCard"
@@ -87,13 +88,11 @@
                 android:layout_marginTop="5dp"
                 android:padding="10dp"
                 android:layout_marginStart="45dp"
-
-
+                android:onClick="addTo"
 
                 android:background="#00FFFFFF"
                 android:contentDescription="cart"
                 android:minWidth="48dp"
-
                 app:srcCompat="@drawable/ic_add_shopping_cart_black_24dp" />
         </LinearLayout>
 
