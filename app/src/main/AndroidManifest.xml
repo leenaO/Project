@@ -74,6 +74,9 @@
             android:name=".SignIn"
             android:exported="false" />
         <activity
+            android:name=".addRecpieIngredients"
+            android:exported="false" />
+        <activity
             android:name=".Logo"
             android:exported="true">
             <intent-filter>

@@ -172,126 +172,36 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         });
 
     }
-    private void isContainAllegy(String ingred, final ImageButton imageView){
+    private void isContainAllergy(String ingred, final ImageButton imageView){
         DatabaseReference dbref=FirebaseDatabase.getInstance().getReference().child("user").child("healthinfo");
         dbref.addValueEventListener(new ValueEventListener() {
-            //imageView.setTag("noAllergy");
-
-
-
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if(snapshot.child(firebaseUser.getUid()).exists()) {
                     imageView.setTag(R.id.allergy,"");
                     containAllergy="";
-
                     allergy = snapshot.child(firebaseUser.getUid()).child("allergy").getValue(String.class);
                     ArrayList<String> al = new ArrayList<>(Arrays.asList(allergy.split(",")));
                     ArrayList<String> ing = new ArrayList<>(Arrays.asList(ingred.split(",")));
-
                     for (String ingredient : ing) {
                         for (String a : al){
                             if (!ingredient.equals("")) {
                                 if (a.toLowerCase().trim().contains(ingredient.toLowerCase().trim())) {
                                     imageView.setTag(R.id.allergy,ingredient+" "+imageView.getTag(R.id.allergy).toString());
-                                    //containAllergy=containAllergy.concat(imageView.getTag(R.id.allergy).toString()+" ");
-
-                                    //containAllergy=containAllergy.concat(ingredient+" ");
-                                    //containAllergy=true;
-                                    //holder.addToCart.setTag("allergy");
                                 }
                             }
                     }
                     }
 
-
                 }else{
                     imageView.setTag(R.id.allergy,"");
-
                 }
-
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //containAllergy=true;
-
             }
         });
-
-//        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid());
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.child(productId).exists()){
-//
-//                    imageView.setTag("in_cart");
-//                }else{
-//
-//                    imageView.setTag("out_cart");
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
-//    private void isInCart(String postid, final ImageButton imageView){
-//        final FirebaseUser firebaseUser2= FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("user").child("healthinfo");
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.child(firebaseUser2.getUid()).exists()){
-//
-//                    imageView.setTag("in");
-//                }else{
-//
-//                    imageView.setTag("out");
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
-
-//    private void cart(String productId, final ImageButton imageView){
-//        final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-//        DatabaseReference ref=FirebaseDatabase.getInstance().getReference().child("cart").child(firebaseUser.getUid());
-//
-//
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.child("productId").getValue().equals(productId)){
-//
-//                    imageView.setTag("in_cart");
-//                }else{
-//
-//                    imageView.setTag("out_cart");
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder mainHolder, int position) {
@@ -334,7 +244,7 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     }
                 });
 
-                isContainAllegy(model.getIngredients(),addToCartDetail);
+                isContainAllergy(model.getIngredients(),addToCartDetail);
                 isInCart(model.getProductId(),addToCartDetail);
 
                 addToCartDetail.setOnClickListener(new View.OnClickListener() {
@@ -532,7 +442,7 @@ public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 }
             }
         });
-        isContainAllegy(model.getIngredients(),holder.addToCart);
+        isContainAllergy(model.getIngredients(),holder.addToCart);
         isInCart(model.getProductId(),holder.addToCart);
 
 
