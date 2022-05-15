@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.sql.Connection;
+import java.util.Locale;
 
 public class SignIn extends AppCompatActivity {
 
@@ -68,29 +69,27 @@ public class SignIn extends AppCompatActivity {
 
             }
 
-
         });
     }
 
-
     private void loginuser() {
-        email = Email.getText().toString();
+        email = Email.getText().toString().toUpperCase().trim();
         password = pass.getText().toString();
-        if (TextUtils.isEmpty(email) &&TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(email) && TextUtils.isEmpty(password)) {
             Email.setError("Please enter your email");
             pass.setError("Please enter your password");
             return;
         }
-        if (TextUtils.isEmpty(email) ) {
+        if (TextUtils.isEmpty(email)) {
             Email.setError("Please enter your email");
             return;
         }
-        if(TextUtils.isEmpty(password)){
+        if (TextUtils.isEmpty(password)) {
             pass.setError("Please enter your password");
             return;
 
         }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
             Toast.makeText(SignIn.this, "Fields email pattern..", Toast.LENGTH_LONG).show();
             return;
@@ -101,18 +100,23 @@ public class SignIn extends AppCompatActivity {
         progressDialog.show();
         firebaseAuth = FirebaseAuth.getInstance();
 
-        firebaseAuth.signInWithEmailAndPassword(email,password)
+        firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                        if(currentUser != null){
-                            progressDialog.setMessage("Sing in Account ...");
-                            startActivity(new Intent(SignIn.this, HomePage.class ));
-                            progressDialog.dismiss();
+                        if (currentUser != null) {
+                            if (currentUser.isEmailVerified()) {
+                                progressDialog.setMessage("Sing in Account ...");
+                                startActivity(new Intent(SignIn.this, HomePage.class));
+                                progressDialog.dismiss();
 
+                            }else {
+                                Toast.makeText(getApplicationContext(),"please verify your email address",Toast.LENGTH_LONG).show();
+                                progressDialog.dismiss();
+
+                            }
                         }
-
 
                     }
                 })
@@ -120,7 +124,7 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.dismiss();
-                        Toast.makeText(SignIn.this, ""+e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(SignIn.this, "" + e.getMessage(), Toast.LENGTH_LONG).show();
 
                     }
                 });

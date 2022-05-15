@@ -59,7 +59,8 @@
 
         <activity
             android:name=".HomePage"
-            android:exported="false" />
+            android:exported="false"
+           />
         <activity
             android:name=".SignUp"
             android:exported="false" />
@@ -67,7 +68,13 @@
             android:name=".AddRecipePage"
             android:exported="false" />
         <activity
+            android:name=".addRecpieIngredients"
+            android:exported="false" />
+        <activity
             android:name=".SignIn"
+            android:exported="false" />
+        <activity
+            android:name=".addRecpieIngredients"
             android:exported="false" />
         <activity
             android:name=".Logo"

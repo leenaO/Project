@@ -16,10 +16,10 @@
         <item>Diet</item>
         <item>Keto</item>
         <item>Vegetarian</item>
-        <item>Low calories</item>
-        <item>Low calories and Vegetarian</item>
+        <item>Free Sugar</item>
+        <item>Free Sugar and Vegetarian</item>
         <item>Keto and Vegetarian</item>
-        <item>Keto and Low calories</item>
+        <item>Keto and Free Sugar</item>
         <item>All</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->

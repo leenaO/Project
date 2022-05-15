@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,14 +16,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,36 +32,36 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class AddRecipePage extends AppCompatActivity {
-    Button addIng;
+public class AddRecipePage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ImageView recipe_photo;
-    TextView take_picture;
+    TextView take_picture,text;
     EditText recapiname, howtomake;
     ActivityResultLauncher<Intent> someActivityResultLauncher1;
-
-    Uri uri;
+    Uri uri = null;
     int request_code;
     DatabaseReference databaseReference;
     StorageReference storageReference;
@@ -68,11 +70,15 @@ public class AddRecipePage extends AppCompatActivity {
     ProgressDialog progressDialog;
     ArrayAdapter<String> myAdpt;
     Recipe recipe_set;
-    BottomNavigationView bottomNavigationView;
-
-
-
-
+    Spinner mySpin;
+    String item;
+    private ArrayAdapter<String> itemsAdpt;
+    private ListView listView;
+    EditText et;
+    private Button add;
+    private StorageTask uploadTask;
+    Recipe ingredient = new Recipe();
+    List<String> stringList =new ArrayList<String>();
     public void add_post(View view) {
 
         progressDialog.setMessage("Promote Post...");
@@ -80,53 +86,51 @@ public class AddRecipePage extends AppCompatActivity {
         inputrecipename = recapiname.getText().toString().trim();
         inputhowmaket = howtomake.getText().toString().trim();
         recipe_set = new Recipe();
-
-        addpost();
+        if(uploadTask!= null && uploadTask.isInProgress()){
+            Toast.makeText(getApplicationContext(),"upload is progress",Toast.LENGTH_LONG).show();
+        }else{
+            addpost();
+            startActivity(new Intent(AddRecipePage.this,RecipePage.class));
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe_page);
-
-        bottomNavigationView=findViewById(R.id.nav_view_add_recipe);
-        bottomNavigationView.setSelectedItemId(R.id.nav_add_recipe);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        listView = (ListView) findViewById(R.id._dynamic);
+        add = (Button) findViewById(R.id.add);
+        et = (EditText)findViewById(R.id.et);
+        itemsAdpt = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,stringList);
+        listView.setAdapter(itemsAdpt);
+        et.setText("");
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.nav_home:
-                        startActivity(new Intent(AddRecipePage.this,HomePage.class));
-                        break;
-                    case R.id.nav_fav:
-                        startActivity(new Intent(AddRecipePage.this,Favorite.class));
-                        break;
-                    case R.id.nav_basket:
-                        startActivity(new Intent(AddRecipePage.this,CartPage.class));
-                        break;
-                    case R.id.nav_add_recipe:
-                        startActivity(new Intent(AddRecipePage.this,AddRecipePage.class));
-                        break;
-                    case R.id.nav_profile:
-                        startActivity(new Intent(AddRecipePage.this,Account.class));
-                        break;
-
-
+            public void onClick(View view) {
+                String stringval = et.getText().toString();
+                if(!(stringval.equals(""))){
+                    stringList.add(stringval);
+                    itemsAdpt.notifyDataSetChanged();
+                    ingredient.setIngrediant(stringList);
+                    et.setText("");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please enter text..", Toast.LENGTH_LONG).show();
                 }
-                return true;
             }
         });
-        Spinner mySpin = (Spinner) findViewById(R.id.spinnerD);
-        myAdpt = new ArrayAdapter<String>(AddRecipePage.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Diet));
-        myAdpt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpin.setAdapter(myAdpt);
 
-        addIng = (Button) findViewById(R.id.buttonIng);
+        setUpListViewListener();
+
+        mySpin = (Spinner) findViewById(R.id.spinnerD);
+        myAdpt = new ArrayAdapter<String>(AddRecipePage.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.Diet));
+        myAdpt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpin.setOnItemSelectedListener(this);
+        mySpin.setAdapter(myAdpt);
         recipe_photo = (ImageView) findViewById(R.id.photo_rcipe);
         take_picture = (TextView) findViewById(R.id.take_picture);
         recapiname = (EditText) findViewById(R.id.addpname);
         howtomake = (EditText) findViewById(R.id.howtomake);
-
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("please wait");
         progressDialog.setCanceledOnTouchOutside(true);
@@ -154,10 +158,22 @@ public class AddRecipePage extends AppCompatActivity {
         });
 
     }
+    private void setUpListViewListener(){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Context context = getApplicationContext();
+                Toast.makeText(context, "One Ingredient Removed", Toast.LENGTH_LONG).show();
+                stringList.remove(i);
+                itemsAdpt.notifyDataSetChanged();
+                return true;
+            }
+        });
+    }
 
     private void checkuser() {
         firebaseAuth = FirebaseAuth.getInstance();
-       user = firebaseAuth.getCurrentUser();
+        user = firebaseAuth.getCurrentUser();
         if (user !=null) {
             addpost();
         } else {
@@ -165,12 +181,6 @@ public class AddRecipePage extends AppCompatActivity {
             finish();
         }
     }
-    public void resIng(View v) {
-       startActivity(new Intent(AddRecipePage.this,addRecpieIngredients.class));
-
-    }
-
-
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -179,7 +189,6 @@ public class AddRecipePage extends AppCompatActivity {
 
     public void add_Image(View view) {
         showImagePicDialog();
-
 
     }
 
@@ -289,7 +298,7 @@ public class AddRecipePage extends AppCompatActivity {
 
     }
 
-  private  String inputrecipename, inputhowmaket;
+    private  String inputrecipename, inputhowmaket;
 
     private String getfileextiontio(Uri u){
         ContentResolver resolver = getContentResolver();
@@ -299,50 +308,51 @@ public class AddRecipePage extends AppCompatActivity {
     private void addpost() {
 
         if (uri != null) {
-          //  DatabaseReference recipedata = FirebaseDatabase.getInstance().getReference().child("recipe").push();
-
             StorageReference storageReference1 =storageReference.child(System.currentTimeMillis()+"."+getfileextiontio(uri));
-            storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            uploadTask=  storageReference1.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     storageReference1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-
                             DatabaseReference namerefrence = FirebaseDatabase.getInstance().getReference().child("Account").child(firebaseAuth.getUid()).child("name");
                             namerefrence.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    String namevalue = snapshot.getValue(String.class);
+                                public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                    String namevalue = snapshot1.getValue(String.class);
+//                                    Query query = reference.child("recipe").orderByChild("recipeMaker").equalTo(namevalue);
+
                                     recipe_set.setRecipeName(inputrecipename);
                                     recipe_set.setHowmake(inputhowmaket);
                                     recipe_set.setRecipeMaker(namevalue);
-                                    recipe_set.setDite(myAdpt.getItem(1));
+                                    recipe_set.setDite(item);
                                     recipe_set.setImg(String.valueOf(uri));
                                     recipe_set.setId(firebaseAuth.getUid());
-                                    recipe_set.setId(databaseReference.getKey());
                                     recipe_set.setRecipeID(databaseReference.push().getKey());
-                                   // recipedata.setValue(recipe_set);
+                                    recipe_set.setIngrediant(ingredient.getIngrediant());
+                                    recipe_set.setRecipeKey(databaseReference.getKey());
                                     databaseReference.setValue(recipe_set).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(Void unused) {
+                                        public  void onSuccess(Void unused) {
+                                            recipe_photo.setImageURI(null);
+                                            howtomake.setText("");
+                                            recapiname.setText("");
                                             Toast.makeText(getApplicationContext(), "Finally is completed", Toast.LENGTH_LONG).show();
                                         }
                                     });
+
                                 }
 
-
                                 @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                public void onCancelled(
+                                        @NonNull DatabaseError error) {
+                                    Toast.makeText(getApplicationContext(),"error"+error.getMessage(),Toast.LENGTH_LONG).show();
 
                                 }
                             });
 
-
-
                             Toast.makeText(getApplicationContext(), "great! your add post", Toast.LENGTH_LONG).show();
-
                             progressDialog.dismiss();
 
                         }
@@ -355,12 +365,12 @@ public class AddRecipePage extends AppCompatActivity {
                         }
                     });
                 }  }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "Error!" + e.getMessage(), Toast.LENGTH_LONG).show();
-                            progressDialog.dismiss();
-                        }
-                    });
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error!" + e.getMessage(), Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
+                }
+            });
 
 
         } else {
@@ -369,9 +379,15 @@ public class AddRecipePage extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        item = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(getApplicationContext(),"item selected is:"+item,Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        Toast.makeText(getApplicationContext(),"Nothing selected...",Toast.LENGTH_LONG).show();
 
+    }
 }
-
-
-

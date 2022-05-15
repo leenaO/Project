@@ -6,27 +6,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+android:layoutDirection="ltr"
     android:id="@+id/homepage"
     tools:context=".HomePage">
 
     <TextView
         android:id="@+id/khiarTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:paddingStart="10dp"
-        android:fontFamily="cursive"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="KHIAR"
-        android:gravity="left|center"
-        android:textColor="#718E37"
-        android:textSize="30sp"
-        android:textStyle="bold"
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Home Page "
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="10dp"
+
+            android:gravity="left|center"
+            android:textColor="#4CAF50"
+            android:textSize="30dp"/>
+
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -57,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
+                android:paddingTop="7dp"
                 >
 
                 <TextView
@@ -69,6 +70,7 @@
                     android:text="Latest Products"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:paddingLeft="5dp"
                     app:layout_constraintStart_toStartOf="@+id/khiarTitle"
                     app:layout_constraintTop_toBottomOf="@+id/khiarTitle" />
                 <Button
@@ -79,7 +81,7 @@
 
                     android:background="#00FFFFFF"
                     android:text="Show All"
-                    android:textColor="#718E37"
+                    android:textColor="#4CAF50"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_marginLeft="170dp"
@@ -95,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ltp" />
             <LinearLayout
@@ -111,6 +113,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     android:text="Latest Recipes"
+                    android:paddingLeft="5dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/khiarTitle"
@@ -122,11 +125,9 @@
                     android:id="@+id/showRecipeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-
                     android:background="#00FFFFFF"
                     android:text="Show All"
-                    android:textColor="#718E37"
+                    android:textColor="#4CAF50"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:layout_gravity="right"
@@ -141,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginLeft="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" >
@@ -151,12 +152,13 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-
+                      android:paddingLeft="5dp"
                 android:text="Shop by Diets"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:paddingBottom="10dp"
                 app:layout_constraintStart_toStartOf="@+id/khiarTitle"
                 app:layout_constraintTop_toBottomOf="@+id/rvhome2" />
 
@@ -247,7 +249,7 @@
                             android:layout_height="91dp"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="1dp"
-                            app:srcCompat="@drawable/low" />
+                            app:srcCompat="@drawable/freesugar" />
 
 
                         <TextView
@@ -257,7 +259,7 @@
                             android:layout_below="@id/lowImg"
                             android:layout_marginLeft="1dp"
                             android:layout_marginTop="0dp"
-                            android:text="Low-Calorie diet"
+                            android:text="Free Sugar diet"
                             android:textColor="#000000" />
 
 
@@ -268,7 +270,7 @@
                             android:layout_below="@+id/lowName"
                             android:layout_marginLeft="1dp"
                             android:layout_marginTop="1dp"
-                            android:text="You can see all Low-Calorie product here" />
+                            android:text="You can see all Free Sugar product here" />
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -330,19 +332,14 @@
         android:id="@+id/nav_view_h"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#D2DCBE"
-        app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#FFFFFF"
-
-
-
+        android:background="#47B64B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-
-
         app:layout_constraintVertical_bias="0.717"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
         app:menu="@menu/bottom_nav_menu" />
 
 

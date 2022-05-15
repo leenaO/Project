@@ -4,30 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Favorite">
+    tools:context=".Favorite"
+    android:layoutDirection="ltr">
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginStart="15dp"
-        android:fontFamily="cursive"
         android:text="Favorites"
-        android:textColor="#718E37"
+        android:textColor="#4CAF50"
         android:textSize="30sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view_f"
+        android:id="@+id/nav_view_h"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginEnd="0dp"
-        android:background="#D2DCBE"
-        app:itemIconTint="#FFFFFF"
-        app:itemTextColor="#FFFFFF"
+        android:background="#47B64B"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.717"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
         app:menu="@menu/bottom_nav_menu" />
 
     <TextView
