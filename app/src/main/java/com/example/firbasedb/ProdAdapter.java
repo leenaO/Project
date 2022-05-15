@@ -34,7 +34,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-public class ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class
+ProdAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context mContext;
 
     private Activity mActivity;
