@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.firbasedb.R;
@@ -32,6 +33,8 @@ public class SignUp extends AppCompatActivity {
     FirebaseAuth fAuth;
     ProgressDialog progressDialog;
     String user , password , e_mail,phone;
+    ImageButton prev;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +114,13 @@ progressDialog.setCanceledOnTouchOutside(false);
                 startActivity(new Intent(SignUp.this,SignIn.class));
             }
         });
+        prev = findViewById(R.id.previousButtonSing);
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUp.this, SignIn.class));
+            }
+        });
     }
 
     private void createaccount() {
@@ -164,4 +174,5 @@ progressDialog.setCanceledOnTouchOutside(false);
                     }
                 });
     }
+
 }

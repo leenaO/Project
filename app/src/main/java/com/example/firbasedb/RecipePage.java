@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class RecipePage extends AppCompatActivity {
     RecyclerView recyclerView;
     BottomNavigationView bottomNavigationView;
 
+    Button all,frozen,cann,dairy,fresh,snacks,drinks;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,66 @@ public class RecipePage extends AppCompatActivity {
         });
         mActivity = RecipePage.this;
         mContext = getApplicationContext();
+        all=findViewById(R.id.allProduct);
+        frozen=findViewById(R.id.frozen);
+        cann=findViewById(R.id.canned);
+        dairy=findViewById(R.id.dairy);
+        fresh=findViewById(R.id.fresh);
+        snacks=findViewById(R.id.snack);
+        drinks=findViewById(R.id.drinks);
+        Button[] category={all,frozen,cann,dairy,fresh,snacks,drinks};
+
+//        all.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                section("all",all,category);
+//            }
+//        });
+//
+//        frozen.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                section("frozen",frozen,category);
+//            }
+//        });
+//
+//        cann.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                section("canned",cann,category);
+//            }
+//        });
+//
+//        dairy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                section("dairy",dairy,category);
+//            }
+//        });
+//
+//        fresh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                section("fresh",fresh,category);
+//            }
+//        });
+//        snacks.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                section("snacks",snacks,category);
+//            }
+//        });
+//        drinks.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                section("drinks",drinks,category);
+//            }
+//        });
         FirebaseApp.initializeApp(this);
         searchView=findViewById(R.id.searchBar);
         searchView.clearFocus();

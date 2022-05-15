@@ -43,9 +43,9 @@ public class HomePage extends AppCompatActivity { RecyclerView rv2,rv1;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        bottomNavigationView=findViewById(R.id.nav_view_h);
         mActivity = HomePage.this;
         mContext = getApplicationContext();
+        bottomNavigationView=findViewById(R.id.nav_view_h);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -118,13 +118,13 @@ public class HomePage extends AppCompatActivity { RecyclerView rv2,rv1;
 
 
         products = new ArrayList<>();
-        Query q2 = FirebaseDatabase.getInstance().getReference("Products").limitToLast(3);
+        Query q2 = FirebaseDatabase.getInstance().getReference("Products").limitToLast(5);
         q2.addValueEventListener(valueEventListener2);
         latestProducts= new ProdAdapter(this,mActivity,products);
         rv2.setAdapter(latestProducts);
 
         recipes = new ArrayList<>();
-        Query q =FirebaseDatabase.getInstance().getReference("recipe").limitToLast(3);
+        Query q =FirebaseDatabase.getInstance().getReference("recipe").limitToLast(5);
         q.addValueEventListener(valueEventListener);
         latestRecipes= new ImageAdapter(this,recipes);
         rv1.setAdapter(latestRecipes);

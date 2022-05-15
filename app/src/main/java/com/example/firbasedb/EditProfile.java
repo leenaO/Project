@@ -93,6 +93,7 @@ public class EditProfile extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView3);
         button = (TextView) findViewById(R.id.textView11);
         save = (Button) findViewById(R.id.save);
+        email.setEnabled(false);
         healthInfo=(Button) findViewById(R.id.healthInfo);
         View view = this.getCurrentFocus();
         getSomeActivityResultLauncher();
@@ -147,15 +148,14 @@ public class EditProfile extends AppCompatActivity {
                                 phonNo.setText(phone_1);
                                 progressDialog.dismiss();
                             }else{
-                                Toast.makeText(getApplicationContext(), "Updating profile", Toast.LENGTH_SHORT).show();
                                 name.setText(name_1);
                                 email.setText(email_1);
                                 phonNo.setText(phone_1);
                                 progressDialog.dismiss();
 
-
                             }
                         }
+
                     }
 
                     @Override
@@ -173,7 +173,6 @@ public class EditProfile extends AppCompatActivity {
 
     public ActivityResultLauncher<Intent> getSomeActivityResultLauncher() {
 
-
         someActivityResultLauncher1 = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -182,17 +181,12 @@ public class EditProfile extends AppCompatActivity {
                         if (request_code == 100) {
                             uri = data.getData();
                             imageView.setImageURI(uri);
-                            Toast.makeText(EditProfile.this, "uri gallery is " + uri.getPath(), Toast.LENGTH_LONG).show();
 
                         } else if (request_code == 200) {
-//                          bitmap= (Bitmap)  data.getExtras().get("data");
-//                          imageView.setImageBitmap(bitmap);
                             try {
                                 ContentResolver cr = getContentResolver();
                                 try {
-                                    // Creating a Bitmap with the image Captured
                                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(cr, uri);
-                                    // Setting the bitmap as the image of the
                                     imageView.setImageBitmap(bitmap);
                                     Toast.makeText(EditProfile.this, "uri is camera" + uri.getPath(), Toast.LENGTH_LONG).show();
 
@@ -215,7 +209,6 @@ public class EditProfile extends AppCompatActivity {
         return someActivityResultLauncher1;
     }
 
-
     private void showImagePicDialog() {
         String options[] = {"Camera", "Gallery"};
         androidx.appcompat.app.AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -224,7 +217,6 @@ public class EditProfile extends AppCompatActivity {
                     @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 
                         if (which == 0) {
 
@@ -278,14 +270,13 @@ public class EditProfile extends AppCompatActivity {
     }
 
     ////////database firebase////////
-    String nameupdate, emailupate, phoneupadte;
+    String nameupdate, phoneupadte;
 
     public void Save(View view) {
         nameupdate = name.getText().toString();
-        emailupate = email.getText().toString();
         phoneupadte = phonNo.getText().toString();
         updateprofile();
-
+        Toast.makeText(EditProfile.this, "Updating your profile ", Toast.LENGTH_LONG).show();
 
     }
     private String getfileextiontio(Uri u){
@@ -301,7 +292,6 @@ public class EditProfile extends AppCompatActivity {
         if (uri == null) {
             HashMap<String, Object> hashMap = new HashMap<>();
             hashMap.put("name", nameupdate);
-            hashMap.put("email", emailupate);
             hashMap.put("PhoneNo", phoneupadte);
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Account");
             reference.child(firebaseAuth.getUid()).updateChildren(hashMap)
@@ -330,7 +320,6 @@ public class EditProfile extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
 
-
             UploadTask uploadTask = storageReference.putBytes(data);
             StorageReference storageReference1 = storageReference.child(System.currentTimeMillis() + "." + getfileextiontio(uri));
 
@@ -344,7 +333,6 @@ public class EditProfile extends AppCompatActivity {
                                 HashMap<String, Object> hashMap = new HashMap<>();
                                 hashMap.put("image_uri",String.valueOf(uri));
                                 hashMap.put("name", nameupdate);
-                                hashMap.put("email", emailupate);
                                 hashMap.put("PhoneNo", phoneupadte);
                                 reference.child(firebaseAuth.getUid()).updateChildren(hashMap)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -388,28 +376,5 @@ public class EditProfile extends AppCompatActivity {
 
         }
     }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

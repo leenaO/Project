@@ -44,7 +44,7 @@ public class Favorite extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
-        bottomNavigationView=findViewById(R.id.nav_view_f);
+        bottomNavigationView=findViewById(R.id.nav_view_h);
         bottomNavigationView.setSelectedItemId(R.id.nav_fav);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
