@@ -147,7 +147,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:layout_alignParentStart="true"
-                        android:text="click long on the ingredient to see all related products and add it directly to cart." />
+                        android:text="click long on the ingredient to see all related \nproducts and add it directly to cart." />
                     <ListView
                         android:layout_alignParentStart="true"
                         android:id="@+id/listView"
@@ -174,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="1dp">
 
                     <TextView
                         android:layout_width="wrap_content"
