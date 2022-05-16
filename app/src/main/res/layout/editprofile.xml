@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
 
 
     <TextView
@@ -61,7 +62,7 @@
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:background="@drawable/button_custom"
+        android:background="@drawable/manager_button"
         android:ems="15"
         android:onClick="Save"
         android:paddingLeft="20dp"
@@ -80,7 +81,7 @@
         android:id="@+id/healthInfo"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:background="@drawable/button_custom"
+        android:background="@drawable/manager_button"
         android:ems="15"
         android:paddingLeft="20dp"
         android:text="Your Health Information"
@@ -97,7 +98,7 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:background="@drawable/button_custom"
+        android:background="@drawable/manager_button"
         android:ems="15"
         android:onClick="logout"
         android:paddingLeft="20dp"
