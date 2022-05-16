@@ -184,12 +184,18 @@
                         android:textStyle="bold"
                         android:text="How to make it: " />
 
-                    <TextView
-                        android:id="@+id/RecipeProcedure"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="textImeMultiLine"
-                        android:text="TextView" />
+                    <ScrollView
+                        android:layout_width="310dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/RecipeProcedure"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TextView" />
+                    </ScrollView>
 
 
                 </LinearLayout>
