@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Warn extends AppCompatActivity {
+public class
+Warn extends AppCompatActivity {
     Dialog mydialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

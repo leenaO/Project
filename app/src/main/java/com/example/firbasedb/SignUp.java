@@ -172,6 +172,7 @@ public class SignUp extends AppCompatActivity {
                         //   startActivity(new Intent(SignUp.this,Home.class));
                         Toast.makeText(getApplicationContext(), "Failed Saving..", Toast.LENGTH_SHORT).show();
                         finish();
+
                     }
                 });
     }
